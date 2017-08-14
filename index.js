@@ -45,7 +45,7 @@ async function sendMessage(text) {
 
 async function getMemberList(groupId) {
    try {
-     const response = await axios.get(`${API_URL}/groups/${groupId}`);
+     const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
      const group = response.data;
      const members = group.members;
      const membersList = members.map(member => {
