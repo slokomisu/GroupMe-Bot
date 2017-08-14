@@ -3,26 +3,30 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
+
 const app = express();
 
-app.use(cors())
 app.use(bodyParser.json());
 
-const BOT_ID = '59cfea71ee774ff88c74f9593b';
 const API_URL = 'https://api.groupme.com/v3'
-const GROUP_ID = '32374324'
+
 
 
 app.post('/callback', async (req, res) => {
   // console.log(req.body.attachments[0].loci);
   const { text, sender_type, group_id } = req.body;
-  if (text.includes('@everyone') || text.includes('@everybody')) {
-    try {
-      const { mentionList, mentionAttachment } = await getMentionList(group_id, text);
-      await sendMessage(mentionList, mentionAttachment);
-      console.log('Tagged everyone')
-    } catch (error) {
-      console.log(error);
+  if (sender_type !== 'bot') {
+    if (text.includes('@everyone') || text.includes('@everybody')) {
+      try {
+        const { mentionList, mentionAttachment } = await getMentionList(group_id, text);
+        await sendMessage(mentionList, mentionAttachment);
+        console.log('Tagged everyone')
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 })
@@ -32,7 +36,7 @@ async function sendMessage(text, mentionAttachment) {
   const messageRequest = {
     text,
     attachments: [mentionAttachment],
-    bot_id: BOT_ID
+    bot_id: process.env.BOT_ID
   }
   try {
     const request = await axios.post(`https://api.groupme.com/v3/bots/post`, messageRequest);
