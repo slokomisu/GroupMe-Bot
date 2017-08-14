@@ -8,7 +8,7 @@ const app = express();
 app.use(cors())
 app.use(bodyParser.json());
 
-const BOT_ID = '3fb20f85ce19705f0ec1aa1a3a';
+const BOT_ID = '59cfea71ee774ff88c74f9593b';
 const API_URL = 'https://api.groupme.com/v3'
 const GROUP_ID = '32374324'
 
@@ -17,8 +17,9 @@ app.post('/callback', async (req, res) => {
   const { text, sender_type } = req.body;
   if (text.includes('@everyone') || text.includes('@everybody')) {
     try {
-      const memberList = await getMemberList();
+      const memberList = await getMemberList(GROUP_ID);
       await sendMessage(memberList);
+      console.log('Tagged everyone')
     } catch (error) {
       console.log(error);
     }
@@ -28,11 +29,11 @@ app.post('/callback', async (req, res) => {
 
 async function sendMessage(text) {
   const messageRequest = {
-    bot_id: BOT_ID,
-    text
+    text,
+    bot_id: BOT_ID
   }
   try {
-    const request = await axios.post(`${API_URL}/bots/post`, messageRequest);
+    const request = await axios.post(`https://api.groupme.com/v3/bots/post`, messageRequest);
     const successResponse = {
       message: 'Message succesfully sent',
       text
@@ -41,12 +42,14 @@ async function sendMessage(text) {
   } catch (error) {
     console.log(error);
   }
+
 }
 
 async function getMemberList(groupId) {
    try {
      const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
-     const group = response.data;
+    //  const response = await axios.get(`https://api.groupme.com/v3/groups/32374324?token=m0zkBco61gED00rRPKvaOwTFcYmvL2b8jyeXWUlR`);
+     const group = response.data.response;
      const members = group.members;
      const membersList = members.map(member => {
        return member.nickname
@@ -56,8 +59,9 @@ async function getMemberList(groupId) {
      });
      return membersList.join(' ');
    } catch (error) {
-     console.log(error);
+     console.log('error', error);
    }
+
 }
 
 
