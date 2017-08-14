@@ -14,10 +14,10 @@ const GROUP_ID = '32374324'
 
 
 app.post('/callback', async (req, res) => {
-  const { text, sender_type } = req.body;
+  const { text, sender_type, group_id } = req.body;
   if (text.includes('@everyone') || text.includes('@everybody')) {
     try {
-      const memberList = await getMemberList(GROUP_ID);
+      const memberList = await getMemberList(group_id);
       await sendMessage(memberList);
       console.log('Tagged everyone')
     } catch (error) {
