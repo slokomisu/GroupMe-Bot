@@ -31,17 +31,20 @@ app.post('/message', async (req, res) => {
 
 app.post('/callback', async (req, res) => {
   console.log(req.body);
-  const { name, text } = req.body
-  const message = `${name} said: ${text}`;
-  const messageRequest = {
-    bot_id: BOT_ID,
-    text: message
-  };
-  try {
-    await axios.post(API_URL, messageRequest);
-    console.log('Sent message: ', message);
-  } catch (error) {
-    console.error('Something went wrong.', error);
+  const { name, text, sender_type } = req.body
+
+  if (sender_type !== 'bot') {
+    const message = `${name} said: ${text}`;
+    const messageRequest = {
+      bot_id: BOT_ID,
+      text: message
+    };
+    try {
+      await axios.post(API_URL, messageRequest);
+      console.log('Sent message: ', message);
+    } catch (error) {
+      console.error('Something went wrong.', error);
+    }
   }
 })
 
