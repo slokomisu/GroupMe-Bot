@@ -14,7 +14,7 @@ const GROUP_ID = '32374324'
 
 
 app.post('/callback', async (req, res) => {
-  console.log(req.body.attachments[0].user_ids);
+  console.log(req.body.attachments[0].loci);
   const { text, sender_type, group_id } = req.body;
   if (text.includes('@everyone') || text.includes('@everybody')) {
     try {
@@ -28,7 +28,10 @@ app.post('/callback', async (req, res) => {
 })
 
 
-async function sendMessage(text) {
+async function sendMessage(text, userIds) {
+  const attachments = {
+
+  }
   const messageRequest = {
     text,
     bot_id: BOT_ID
