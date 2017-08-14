@@ -14,6 +14,7 @@ const GROUP_ID = '32374324'
 
 
 app.post('/callback', async (req, res) => {
+  console.log(req.body);
   const { text, sender_type, group_id } = req.body;
   if (text.includes('@everyone') || text.includes('@everybody')) {
     try {
