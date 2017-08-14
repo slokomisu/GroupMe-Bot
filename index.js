@@ -72,7 +72,6 @@ function buildMentionsAttachment(members, mentionList) {
 async function getMentionList(groupId, message) {
    try {
      const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
-    //  const response = await axios.get(`https://api.groupme.com/v3/groups/32968213?token=m0zkBco61gED00rRPKvaOwTFcYmvL2b8jyeXWUlR`);
      const members = response.data.response.members;
      const mentionList = members.map(member => {
        return member.nickname
