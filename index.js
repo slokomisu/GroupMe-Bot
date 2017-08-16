@@ -16,7 +16,7 @@ const API_URL = 'https://api.groupme.com/v3'
 
 
 app.post('/callback', async (req, res) => {
-  // console.log(req.body.attachments[0].loci);
+  console.log(req.body);
   const { text, sender_type, group_id } = req.body;
   if (sender_type !== 'bot') {
     if (text.includes('@everyone') || text.includes('@everybody')) {
@@ -78,10 +78,7 @@ async function getMentionList(groupId, message) {
      const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
      const members = response.data.response.members;
      const mentionList = members.map(member => {
-       return member.nickname
-     })
-     .map(member => {
-       return `@${member}`;
+       return `@${member.nickname}`
      }).join(' ');
      const mentionAttachment = buildMentionsAttachment(members, mentionList);
      return {
