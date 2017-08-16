@@ -23,10 +23,14 @@ app.post('/callback', async (req, res) => {
       try {
         const { mentionList, mentionAttachment } = await getMentionList(group_id, text);
         await sendMessage(mentionList, mentionAttachment);
+        res.status(200).send();
         console.log('Tagged everyone')
       } catch (error) {
         console.log(error);
+        res.status(500);
       }
+    } else {
+      res.status(200).send();
     }
   }
 })
