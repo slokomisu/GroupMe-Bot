@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 const humanizeList = require('humanize-list')
+const helmet = require('helmet');
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
 
 const app = express();
-
+app.use(helmet())
 app.use(bodyParser.json());
 
 const API_URL = 'https://api.groupme.com/v3'
