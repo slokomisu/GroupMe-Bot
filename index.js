@@ -26,7 +26,7 @@ app.post('/callback', async (req, res) => {
         res.status(200).send();
         console.log('Tagged everyone')
       } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500);
       }
     } else {
@@ -50,7 +50,7 @@ async function sendMessage(text, mentionAttachment) {
     }
     console.log(successResponse)
   } catch (error) {
-    console.log(error);
+    console.error('Message Send Error', error);
   }
 
 }
@@ -86,7 +86,7 @@ async function getMentionList(groupId, message) {
        mentionAttachment
      };
    } catch (error) {
-     console.log('error', error);
+     console.error('Get Group Info Error:', error);
    }
 
 }
