@@ -38,12 +38,13 @@ app.post('/callback', async (req, res) => {
         return res.status(400).send();
       }
       const weatherMessage = await getWeatherMessage(city);
-      console.log(weatherMessage);
       await sendMessage(weatherMessage);
       res.status(200).send();
     } else {
       res.status(200).send();
     }
+  } else {
+    res.status(400).send();
   }
 })
 
