@@ -15,11 +15,12 @@ const API_URL = 'https://api.groupme.com/v3'
 
 
 
+
 app.post('/callback', async (req, res) => {
   console.log(req.body);
   const { text, sender_type, group_id } = req.body;
   if (sender_type !== 'bot') {
-    if (text.includes('@everyone') || text.includes('@everybody')) {
+    if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
         const { mentionList, mentionAttachment } = await getMentionList(group_id, text);
         await sendMessage(mentionList, mentionAttachment);
