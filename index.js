@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
+const humanizeList = require('humanize-list')
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
@@ -30,18 +31,56 @@ app.post('/callback', async (req, res) => {
         console.error(error);
         res.status(500);
       }
+    } else if (text.toLowerCase().includes('@weather')) {
+      const city = text.split(' ').slice(1).join(' ');
+      const weatherMessage = await getWeatherMessage(city);
+      console.log(weatherMessage);
+      await sendMessage(weatherMessage);
+      res.status(200).send();
     } else {
       res.status(200).send();
     }
   }
 })
 
+async function getWeatherMessage(city) {
+  const encodedCity = encodeURIComponent(city)
+  try {
+    const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${encodedCity}&APPID=${process.env.WEATHER_API_KEY}`);
+    console.log(response.data);
+    const message = makeWeatherMessage(response.data);
+    return message;
+  } catch (error) {
+    console.log('Get Weather Data Error', error);
+  }
+}
 
-async function sendMessage(text, mentionAttachment) {
-  const messageRequest = {
-    text,
-    attachments: [mentionAttachment],
-    bot_id: process.env.BOT_ID
+function makeWeatherMessage(weather) {
+  const tempInFarenheit = Math.floor((weather.main.temp - 273.15) * 9/5 + 32);
+  const humidity = weather.main.humidity;
+  const descriptions = humanizeList(weather.weather.map(code => code.description), {oxfordComma: true});
+  const city = weather.name;
+
+  const message = `It is ${tempInFarenheit}°F in ${city} with a humidity of ${humidity}% with ${descriptions}`;
+  return message;
+}
+
+
+
+
+async function sendMessage(text, attachments) {
+  let messageRequest;
+  if (attachments) {
+    messageRequest = {
+      text,
+      attachments: [attachments],
+      bot_id: process.env.BOT_ID
+    }
+  } else {
+    messageRequest = {
+      text,
+      bot_id: process.env.BOT_ID
+    }
   }
   try {
     const request = await axios.post(`https://api.groupme.com/v3/bots/post`, messageRequest);
