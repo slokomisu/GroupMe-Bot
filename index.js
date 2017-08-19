@@ -33,6 +33,9 @@ app.post('/callback', async (req, res) => {
       }
     } else if (text.toLowerCase().includes('@weather')) {
       const city = text.split(' ').slice(1).join(' ');
+      if (city === '') {
+        return res.status(400).send();
+      }
       const weatherMessage = await getWeatherMessage(city);
       console.log(weatherMessage);
       await sendMessage(weatherMessage);
