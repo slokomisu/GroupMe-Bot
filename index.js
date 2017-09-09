@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 const humanizeList = require('humanize-list')
+// require('dotenv').config();
 
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config();
-}
+// if (process.env.NODE_ENV === 'development') {
+// }
 
 const app = express();
 
