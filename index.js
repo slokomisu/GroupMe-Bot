@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 const humanizeList = require('humanize-list')
-// require('dotenv').config();
 
-// if (process.env.NODE_ENV === 'development') {
-// }
+
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
 
 const app = express();
-
+app.use(helmet())
 app.use(bodyParser.json());
 
 const API_URL = 'https://api.groupme.com/v3'
@@ -33,13 +34,17 @@ app.post('/callback', async (req, res) => {
       }
     } else if (text.toLowerCase().includes('@weather')) {
       const city = text.split(' ').slice(1).join(' ');
+      if (city === '') {
+        return res.status(400).send();
+      }
       const weatherMessage = await getWeatherMessage(city);
-      console.log(weatherMessage);
       await sendMessage(weatherMessage);
       res.status(200).send();
     } else {
       res.status(200).send();
     }
+  } else {
+    res.status(400).send();
   }
 })
 
