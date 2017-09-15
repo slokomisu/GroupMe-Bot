@@ -67,8 +67,9 @@ function makeWeatherMessage(weather) {
   const humidity = weather.main.humidity;
   const descriptions = humanizeList(weather.weather.map(code => code.description), {oxfordComma: true});
   const city = weather.name;
+  const country = weather.sys.country;
 
-  const message = `It is ${tempInFarenheit}°F in ${city} with a humidity of ${humidity}% with ${descriptions}`;
+  const message = `It is ${tempInFarenheit}°F in ${city}, ${country} with a humidity of ${humidity}% with ${descriptions}`;
   return message;
 }
 
