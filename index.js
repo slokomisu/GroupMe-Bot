@@ -20,7 +20,7 @@ const API_URL = 'https://api.groupme.com/v3'
 
 app.post('/callback', async (req, res) => {
   console.log(req.body);
-  const { text, sender_type, group_id } = req.body;
+  const { text, sender_type, group_id, name } = req.body;
   if (sender_type !== 'bot') {
     if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
@@ -40,6 +40,8 @@ app.post('/callback', async (req, res) => {
       const weatherMessage = await getWeatherMessage(city);
       await sendMessage(weatherMessage);
       res.status(200).send();
+    } else if (name === 'Albus' && text.includes('line')) {
+      await sendMessage('IT\'S A CLASS');
     } else {
       res.status(200).send();
     }
