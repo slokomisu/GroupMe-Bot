@@ -40,8 +40,8 @@ app.post('/callback', async (req, res) => {
       const weatherMessage = await getWeatherMessage(city);
       await sendMessage(weatherMessage);
       res.status(200).send();
-    } else if (name === 'Albus' && text.includes('line')) {
-      await sendMessage('IT\'S A CLASS');
+    } else if (name === 'Albus' && text.includes('line') || text.includes('LB')) {
+      await sendMessage('IT\'S A PROBATIONARY CLASS');
     } else {
       res.status(200).send();
     }
