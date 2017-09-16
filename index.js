@@ -20,12 +20,12 @@ const API_URL = 'https://api.groupme.com/v3'
 
 app.post('/callback', async (req, res) => {
   console.log(req.body);
-  const { text, sender_type, group_id, name } = req.body;
+  const { text, sender_type, group_id, name, sender_id } = req.body;
   if (sender_type !== 'bot') {
     if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
-        const { mentionList, mentionAttachment } = await getMentionList(group_id, text);
-        await sendMessage(mentionList, mentionAttachment);
+        const { mentionList, mentionAttachment } = await getMentionList(group_id, text, sender_id);
+        await sendMessage(name + ' wants your attention! ' + mentionList, mentionAttachment);
         res.status(200).send();
         console.log('Tagged everyone')
       } catch (error) {
@@ -120,10 +120,10 @@ function buildMentionsAttachment(members, mentionList) {
   }
 }
 
-async function getMentionList(groupId, message) {
+async function getMentionList(groupId, message, senderId) {
    try {
      const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
-     const members = response.data.response.members;
+     const members = response.data.response.members.filter(member => member.user_id != senderId);
      const mentionList = members.map(member => {
        return `@${member.nickname}`
      }).join(' ');
@@ -143,5 +143,5 @@ const port = process.env.PORT || 4000
 
 
 app.listen(port, () => {
-  console.log('listening');
+  console.log('listening on ' + port);
 })
