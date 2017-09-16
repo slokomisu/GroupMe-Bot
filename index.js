@@ -24,7 +24,7 @@ app.post('/callback', async (req, res) => {
   if (sender_type !== 'bot') {
     if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
-        const { mentionList, mentionAttachment } = await getMentionList(group_id, text, sender_id);
+        const { mentionList, mentionAttachment } = await getMentionList(group_id, text, sender_id, name);
         await sendMessage(name + ' wants your attention! ' + mentionList, mentionAttachment);
         res.status(200).send();
         console.log('Tagged everyone')
@@ -102,13 +102,13 @@ async function sendMessage(text, attachments) {
 
 }
 
-function buildMentionsAttachment(members, mentionList) {
+function buildMentionsAttachment(members, mentionList, offset) {
   const userIds = members.map(member => {
     return member.user_id;
   });
   const loci = []
   members.forEach(member => {
-    const startIndex = mentionList.indexOf(member.nickname);
+    const startIndex = mentionList.indexOf(member.nickname) + offset;
     const length = member.nickname.length;
     const lociItem = [startIndex, length];
     loci.push(lociItem);
@@ -120,14 +120,15 @@ function buildMentionsAttachment(members, mentionList) {
   }
 }
 
-async function getMentionList(groupId, message, senderId) {
+async function getMentionList(groupId, message, senderId, senderName) {
    try {
      const response = await axios.get(`${API_URL}/groups/${groupId}?token=${process.env.ACCESS_TOKEN}`);
      const members = response.data.response.members.filter(member => member.user_id != senderId);
      const mentionList = members.map(member => {
        return `@${member.nickname}`
      }).join(' ');
-     const mentionAttachment = buildMentionsAttachment(members, mentionList);
+     const messageOffset = senderName.length + 23;
+     const mentionAttachment = buildMentionsAttachment(members, mentionList, messageOffset);
      return {
        mentionList,
        mentionAttachment
