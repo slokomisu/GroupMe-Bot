@@ -15,6 +15,7 @@ app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json());
 mongoose.connect(process.env.MONGODB_URI, () => console.log('connected to mongodb'));
+mongoose.Promise = global.Promise
 const API_URL = 'https://api.groupme.com/v3'
 
 

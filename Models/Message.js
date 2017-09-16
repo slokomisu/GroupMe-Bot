@@ -12,7 +12,7 @@ const messageSchema = new mongoose.Schema({
   sender_id: String,
   text: String,
 
-}, {_id: false})
+})
 
 const Message = mongoose.model('Message', messageSchema);
 module.exports = Message;
