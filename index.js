@@ -4,6 +4,8 @@ const cors = require('cors');
 const axios = require('axios');
 const humanizeList = require('humanize-list')
 const helmet = require('helmet');
+const mongoose = require('mongoose');
+const Message = require('./Models/Message');
 
 
 
@@ -12,7 +14,8 @@ const app = express();
 app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json());
-
+mongoose.connect(process.env.MONGODB_URI, () => console.log('connected to mongodb'));
+mongoose.Promise = global.Promise
 const API_URL = 'https://api.groupme.com/v3'
 
 
@@ -20,7 +23,8 @@ const API_URL = 'https://api.groupme.com/v3'
 
 app.post('/callback', async (req, res) => {
   console.log(req.body);
-  const { text, sender_type, group_id, name, sender_id } = req.body;
+  const { text, sender_type, group_id, name, sender_id, id, created_at } = req.body;
+  await Message.create({text, name, sender_id, id, created_at, group_id});
   if (sender_type !== 'bot') {
     if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
@@ -67,8 +71,9 @@ function makeWeatherMessage(weather) {
   const humidity = weather.main.humidity;
   const descriptions = humanizeList(weather.weather.map(code => code.description), {oxfordComma: true});
   const city = weather.name;
+  const country = weather.sys.country;
 
-  const message = `It is ${tempInFarenheit}°F in ${city} with a humidity of ${humidity}% with ${descriptions}`;
+  const message = `It is ${tempInFarenheit}°F in ${city}, ${country} with a humidity of ${humidity}% with ${descriptions}`;
   return message;
 }
 

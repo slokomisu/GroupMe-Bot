@@ -17,7 +17,8 @@
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "helmet": "^3.8.1",
-    "humanize-list": "^1.0.1"
+    "humanize-list": "^1.0.1",
+    "mongoose": "^4.11.11"
   },
   "devDependencies": {
     "dotenv": "^4.0.0"
