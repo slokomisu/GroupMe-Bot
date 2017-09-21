@@ -6,7 +6,7 @@ const messageSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  created_at: {type: Date, default: Date.now}
+  created_at: {type: Date, default: Date.now},
   group_id: String,
   name: String,
   sender_id: String,
