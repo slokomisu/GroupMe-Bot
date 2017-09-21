@@ -24,7 +24,7 @@ const API_URL = 'https://api.groupme.com/v3'
 app.post('/callback', async (req, res) => {
   console.log(req.body);
   const { text, sender_type, group_id, name, sender_id, id, created_at } = req.body;
-  await Message.create({text, name, sender_id, id, new Date(created_at), group_id});
+  await Message.create({text, name, sender_id, id, group_id});
   if (sender_type !== 'bot') {
     if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@everybody')) {
       try {
