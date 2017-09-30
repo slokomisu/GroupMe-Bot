@@ -46,7 +46,7 @@ app.post('/callback', async (req, res) => {
       res.status(200).send();
     } else if (sender_id === '30714614' && text.includes('line') || text.includes('LB')) {
       await sendMessage('IT\'S A PROBATIONARY CLASS');
-    } else if (text.includes('NUT') || text.includes('nut')) {
+    } else if (text.includes('NUT') || text.includes('nut') || text.includes('🥜')) {
       await sendMessage('👀😤😩💦💦👅💯');
     } else {
       res.status(200).send();
