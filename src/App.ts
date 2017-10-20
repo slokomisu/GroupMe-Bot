@@ -27,6 +27,11 @@ class App {
     router.post('/callback', async (req, res) => {
       const message: GroupMeMessage = req.body;
       const messageSent = await this.bot.processMessage(message);
+      if (!messageSent) {
+        res.sendStatus(400)
+      } else {
+        res.sendStatus(200)
+      }
     })
     this.express.use('/', router)
   }
