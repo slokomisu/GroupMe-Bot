@@ -48,6 +48,9 @@ app.post('/callback', async (req, res) => {
       await sendMessage('IT\'S A PROBATIONARY CLASS');
     } else if (text.includes('NUT') || text.includes('nut') || text.includes('🥜')) {
       await sendMessage('👀😤😩💦💦👅💯');
+    } else if (text.toLowerCase().includes('nani') || text.includes('何')) {
+      await sendMessage('OMAE WA MOU SHINDERU');
+      await sendMessage('💥💥💥💥💥💥💥💥');
     } else {
       res.status(200).send();
     }
