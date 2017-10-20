@@ -23,10 +23,11 @@ export class GroupMeBot {
     this.responseTriggers = [
       new EverybodyResponseTrigger(this.accessToken),
       new WeatherResponseTrigger(),
+      new LineResponse(['line', 'LB'], 'IT\'S A PROBATIONARY CLASS MATT'),
       new BasicResponse(['NUT', '🥜'], '👀😤😩💦💦👅💯'),
       new BasicResponse(['nani', '何'],
         'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
-      new LineResponse(['line', 'LB'], 'IT\'S A PROBATIONARY CLASS MATT'),
+      new BasicResponse(['PARTY ROCKERS IN THE HOU'], 'SE TONIGHT'),
     ]
   }
 
