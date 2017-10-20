@@ -1,20 +1,15 @@
 import * as express from 'express'
-import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
-import * as helmet from 'helmet';
-import * as dotenv from 'dotenv';
-import { GroupMeBot } from './bot/bot';
-import { GroupMeMessage } from './types';
-
-
-
+import * as bodyParser from 'body-parser'
+import * as cors from 'cors'
+import * as helmet from 'helmet'
+import { GroupMeBot } from './bot/bot'
+import { GroupMeMessage } from './types'
 
 class App {
   public express: express.Application;
   private bot: GroupMeBot;
 
   constructor () {
-    dotenv.config();    
     this.express = express()
     this.initializeMiddleware();
     this.mountRoutes()

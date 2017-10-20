@@ -1,4 +1,7 @@
 import app from './App'
+import * as mongoose from 'mongoose'
+
+mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
 
 
 const port = process.env.PORT || 3000

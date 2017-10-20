@@ -60,5 +60,6 @@ export interface MessageRequest {
 export interface IResponseTrigger {
   triggerWords: string[];
   accessToken?: string;
-  respond(message: GroupMeMessage, triggerArgs?: string): Promise<BotResponse>
+
+  respond(message: GroupMeMessage): Promise<BotResponse>
 }
