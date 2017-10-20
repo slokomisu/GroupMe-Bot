@@ -24,7 +24,7 @@
     "helmet": "^3.9.0",
     "humanize-list": "^1.0.1",
     "mongoose": "^4.12.3",
-    "tsc": "^1.20150623.0"
+    "typescript": "^2.5.3"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
