@@ -32,14 +32,7 @@ export class GroupMeBot {
   }
 
   public async processMessage (message: GroupMeMessage): Promise<boolean> {
-    Message.create({
-      id: message.id,
-      created_at: new Date(),
-      group_id: message.group_id,
-      name: message.name,
-      sender_id: message.sender_id,
-      text: message.text,
-    })
+    this.addMessageToCreepDB(message)
     if (message.sender_type === SenderType.Bot) {
       return false
     }
@@ -52,6 +45,17 @@ export class GroupMeBot {
     if (response) {
       return await this.sendMessage(response)
     }
+  }
+
+  private addMessageToCreepDB (message: GroupMeMessage) {
+    Message.create({
+      id: message.id,
+      created_at: new Date(),
+      group_id: message.group_id,
+      name: message.name,
+      sender_id: message.sender_id,
+      text: message.text,
+    })
   }
 
   private findTrigger (messageText: string): IResponseTrigger | null {

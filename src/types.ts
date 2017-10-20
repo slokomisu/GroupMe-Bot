@@ -1,8 +1,23 @@
+// Bot Interfaces
+export interface IResponseTrigger {
+  triggerWords: string[];
+  accessToken?: string;
+
+  respond(message: GroupMeMessage): Promise<BotResponse>
+}
+
 export interface BotResponse {
   responseText: string
   attachments?: any[]
 }
 
+export interface MessageRequest {
+  text: string;
+  attachments?: any[];
+  bot_id: string;
+}
+
+// GroupMe Interfaces
 export enum SenderType {
   Bot = "bot",
   User = "user"
@@ -21,7 +36,6 @@ export interface GroupMeMessage {
   text: string,
   user_id: string
 }
-
 
 enum GroupType {
   Private = 'private',
@@ -49,17 +63,6 @@ export interface Group {
   messages: GroupMeMessage[]
 }
 
-export interface MessageRequest {
-  text: string;
-  attachments?: any[];
-  bot_id: string;
-}
 
 
 
-export interface IResponseTrigger {
-  triggerWords: string[];
-  accessToken?: string;
-
-  respond(message: GroupMeMessage): Promise<BotResponse>
-}
