@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node dist/index.js",
+    "postinstall": "npm run build",
+    "build": "tsc"
   },
   "engines": {
     "node": "v8.1.4"
@@ -21,7 +23,8 @@
     "express": "^4.16.2",
     "helmet": "^3.9.0",
     "humanize-list": "^1.0.1",
-    "mongoose": "^4.12.3"
+    "mongoose": "^4.12.3",
+    "tsc": "^1.20150623.0"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
