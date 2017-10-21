@@ -1,13 +1,13 @@
-import { BotResponse, GroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger } from "../types";
 
 export default class BasicResponseTrigger implements IResponseTrigger {
-  constructor (public triggerWords: string[], public response: string) {}
+  constructor(public triggerWords: string[], public response: string) {}
 
-  respond (message: GroupMeMessage): Promise<BotResponse> {
-    const response: BotResponse = {
+  public respond(message: IGroupMeMessage): Promise<IBotResponse> {
+    const response: IBotResponse = {
       responseText: this.response,
-    }
-    return Promise.resolve(response)
+    };
+    return Promise.resolve(response);
   }
 
 }
