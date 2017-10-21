@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
-  eventName: String,
   eventDate: Date,
-})
+  eventName: String,
+});
 
-const Event = mongoose.model('Event', eventSchema)
-export default Event
+const Event = mongoose.model("Event", eventSchema);
+export default Event;
