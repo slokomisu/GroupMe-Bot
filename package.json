@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
-    "ts-node": "^3.3.0"
+    "typescript": "^2.5.3"
   }
 }
