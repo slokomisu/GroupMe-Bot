@@ -6,13 +6,13 @@ import {
   MessageRequest,
   SenderType,
 } from '../types'
-import { EverybodyResponseTrigger } from '../responses/EverybodyResponseTrigger'
-import { WeatherResponseTrigger } from '../responses/WeatherResponseTrigger'
-import { BasicResponse } from '../responses/BasicResponse'
-import { LineResponse } from '../responses/LineResponse'
+import  EverybodyResponseTrigger  from '../responses/EverybodyResponseTrigger'
+import  WeatherResponseTrigger  from '../responses/WeatherResponseTrigger'
+import  BasicResponseTrigger  from '../responses/BasicResponseTrigger'
+import  LineResponseTrigger  from '../responses/LineResponseTrigger'
 import Message from '../Models/Message'
 
-export class GroupMeBot {
+export default class GroupMeBot {
   private botId: string
   private accessToken: string
   private responseTriggers: IResponseTrigger[]
@@ -23,11 +23,11 @@ export class GroupMeBot {
     this.responseTriggers = [
       new EverybodyResponseTrigger(this.accessToken),
       new WeatherResponseTrigger(),
-      new LineResponse(['line', 'LB'], 'IT\'S A PROBATIONARY CLASS MATT'),
-      new BasicResponse(['NUT', '🥜'], '👀😤😩💦💦👅💯'),
-      new BasicResponse(['nani', '何'],
+      new LineResponseTrigger(['line', 'LB'], 'IT\'S A PROBATIONARY CLASS MATT'),
+      new BasicResponseTrigger(['NUT', '🥜'], '👀😤😩💦💦👅💯'),
+      new BasicResponseTrigger(['nani', '何'],
         'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
-      new BasicResponse(['PARTY ROCKERS IN THE HOU'], 'SE TONIGHT'),
+      new BasicResponseTrigger(['PARTY ROCKERS IN THE HOU'], 'SE TONIGHT'),
     ]
   }
 

@@ -2,7 +2,7 @@ import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as helmet from 'helmet'
-import { GroupMeBot } from './bot/bot'
+import GroupMeBot from './bot/GroupMeBot'
 import { GroupMeMessage } from './types'
 
 class App {

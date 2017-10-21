@@ -1,6 +1,6 @@
 import { BotResponse, GroupMeMessage, IResponseTrigger } from '../types'
 
-export class BasicResponse implements IResponseTrigger {
+export default class BasicResponseTrigger implements IResponseTrigger {
   constructor (public triggerWords: string[], public response: string) {}
 
   respond (message: GroupMeMessage): Promise<BotResponse> {

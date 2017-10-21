@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GroupMeMessage, BotResponse, IResponseTrigger, GroupMember } from '../types';
 
 
-export class EverybodyResponseTrigger implements IResponseTrigger {
+export default class EverybodyResponseTrigger implements IResponseTrigger {
   triggerWords = ['@everyone', '@everybody']
   
   constructor(public accessToken: string){}

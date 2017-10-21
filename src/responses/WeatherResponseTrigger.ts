@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as humanizeList from 'humanize-list'
 import { BotResponse, GroupMeMessage, IResponseTrigger } from '../types'
 
-export class WeatherResponseTrigger implements IResponseTrigger {
+export default class WeatherResponseTrigger implements IResponseTrigger {
   triggerWords = ['@weather']
 
   async respond (message: GroupMeMessage): Promise<BotResponse> {
