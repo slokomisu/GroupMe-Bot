@@ -79,8 +79,8 @@ export default class GroupMeBot {
     if (response.attachments) {
       messageRequest = {
         attachments: response.attachments,
-        bot_id: this.botId,
         text: response.responseText,
+        bot_id: this.botId,
       };
     } else {
       messageRequest = {
