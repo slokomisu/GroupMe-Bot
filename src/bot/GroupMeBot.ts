@@ -24,7 +24,7 @@ export default class GroupMeBot {
   }
 
   public async processMessage(message: IGroupMeMessage): Promise<boolean> {
-    this.addMessageToCreepDB(message);
+    await this.addMessageToCreepDB(message);
     if (message.sender_type === SenderType.Bot) {
       return false;
     }
@@ -50,8 +50,8 @@ export default class GroupMeBot {
     ];
 }
 
-  private addMessageToCreepDB(message: IGroupMeMessage) {
-    Message.create({
+  private async addMessageToCreepDB(message: IGroupMeMessage) {
+    await Message.create({
       created_at: new Date(),
       group_id: message.group_id,
       id: message.id,
