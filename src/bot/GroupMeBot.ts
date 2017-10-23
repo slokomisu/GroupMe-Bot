@@ -24,6 +24,8 @@ export default class GroupMeBot {
   }
 
   public async processMessage(message: IGroupMeMessage): Promise<boolean> {
+    console.log(message);
+    
     await this.addMessageToCreepDB(message);
     if (message.sender_type === SenderType.Bot) {
       return false;
