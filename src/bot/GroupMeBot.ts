@@ -1,16 +1,16 @@
-import axios from "axios";
-import Message from "../Models/Message";
-import BasicResponseTrigger from "../responses/BasicResponseTrigger";
-import EverybodyResponseTrigger from "../responses/EverybodyResponseTrigger";
-import LineResponseTrigger from "../responses/LineResponseTrigger";
-import WeatherResponseTrigger from "../responses/WeatherResponseTrigger";
+import axios from 'axios'
+import Message from '../Models/Message'
+import BasicResponseTrigger from '../responses/BasicResponseTrigger'
+import EverybodyResponseTrigger from '../responses/EverybodyResponseTrigger'
+import LineResponseTrigger from '../responses/LineResponseTrigger'
+import WeatherResponseTrigger from '../responses/WeatherResponseTrigger'
 import {
   IBotResponse,
   IGroupMeMessage,
   IMessageRequest,
   IResponseTrigger,
   SenderType,
-} from "../types";
+} from '../types'
 
 export default class GroupMeBot {
   private botId: string;
@@ -25,8 +25,8 @@ export default class GroupMeBot {
 
   public async processMessage(message: IGroupMeMessage): Promise<boolean> {
     console.log(message);
-    
-    await this.addMessageToCreepDB(message);
+
+    // await this.addMessageToCreepDB(message);
     if (message.sender_type === SenderType.Bot) {
       return false;
     }

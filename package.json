@@ -23,6 +23,7 @@
     "helmet": "^3.9.0",
     "humanize-list": "^1.0.1",
     "mongoose": "^4.12.3",
+    "pug": "^2.0.0-rc.4",
     "typescript": "^2.5.3"
   },
   "devDependencies": {
