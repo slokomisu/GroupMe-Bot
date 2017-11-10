@@ -1,4 +1,4 @@
-## GroupMe Bot
+## GroupMe Bot!
 
 This program is a node server intended to
 receive messages from a GroupMe group and sends responses back to that group
