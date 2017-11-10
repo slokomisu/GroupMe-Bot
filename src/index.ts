@@ -1,8 +1,7 @@
-import * as mongoose from 'mongoose'
 import app from './App'
 
-mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
-mongoose.Promise = global.Promise
+// mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
+// mongoose.Promise = global.Promise
 
 const port = process.env.PORT || 3000;
 

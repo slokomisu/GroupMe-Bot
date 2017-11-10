@@ -11,7 +11,6 @@ import {
   IResponseTrigger,
   SenderType,
 } from '../types'
-import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger';
 
 export default class GroupMeBot {
   private botId: string;
@@ -47,8 +46,8 @@ export default class GroupMeBot {
         new EverybodyResponseTrigger(this.accessToken),
         new WeatherResponseTrigger(),
         new LineResponseTrigger(["line", "LB"], "IT'S A PROBATIONARY CLASS MATT"),
-        // new BasicResponseTrigger(["NUT", "🥜"], "👀😤😩💦💦👅💯"),
-        new NoNutNovemberResponseTrigger(),
+      new BasicResponseTrigger(['NUT', '🥜'], '👀😤😩💦💦👅💯'),
+      // new NoNutNovemberResponseTrigger(),
         new BasicResponseTrigger(["nani", "何"], "OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥"),
         new BasicResponseTrigger(["PARTY ROCKERS IN THE HOU"], "SE TONIGHT"),
     ];
