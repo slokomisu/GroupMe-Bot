@@ -1,6 +1,6 @@
 // Bot Interfaces
 export interface IResponseTrigger {
-  triggerWords: string[];
+  triggerPatterns: RegExp[];
   accessToken?: string;
 
   respond(message: IGroupMeMessage): Promise<IBotResponse>;

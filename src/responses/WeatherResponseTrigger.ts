@@ -1,9 +1,9 @@
-import axios from "axios";
-import * as humanizeList from "humanize-list";
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from "../types";
+import axios from 'axios'
+import * as humanizeList from 'humanize-list'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
 
 export default class WeatherResponseTrigger implements IResponseTrigger {
-  public triggerWords = ["@weather"];
+  public triggerPatterns = [/^@weather/]
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     const city = message.text.split(" ").slice(1).join(" ");

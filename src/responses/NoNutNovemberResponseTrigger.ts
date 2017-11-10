@@ -2,7 +2,7 @@ import axios from 'axios'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
 
 export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
-  public triggerWords = ["NUT", "🥜"]
+  public triggerPatterns = [/^NUT/i, /🥜/, /^N U T/i,]
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     let response: IBotResponse;

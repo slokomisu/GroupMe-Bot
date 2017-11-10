@@ -1,8 +1,13 @@
-import axios from "axios";
-import { IBotResponse, IGroupMember, IGroupMeMessage, IResponseTrigger } from "../types";
+import axios from 'axios'
+import {
+  IBotResponse,
+  IGroupMember,
+  IGroupMeMessage,
+  IResponseTrigger,
+} from '../types'
 
 export default class EverybodyResponseTrigger implements IResponseTrigger {
-  public triggerWords = ["@everyone", "@everybody"];
+  public triggerPatterns = [/^@everyone/, /^@everybody/]
 
   constructor(public accessToken: string) {}
 

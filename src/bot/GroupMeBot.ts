@@ -46,11 +46,12 @@ export default class GroupMeBot {
     this.responseTriggers = [
         new EverybodyResponseTrigger(this.accessToken),
         new WeatherResponseTrigger(),
-        new LineResponseTrigger(["line", "LB"], "IT'S A PROBATIONARY CLASS MATT"),
+      new LineResponseTrigger([/line/, /LB/], 'IT\'S A PROBATIONARY CLASS MATT'),
       // new BasicResponseTrigger(['NUT', '🥜'], '👀😤😩💦💦👅💯'),
       new NoNutNovemberResponseTrigger(),
-        new BasicResponseTrigger(["nani", "何"], "OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥"),
-        new BasicResponseTrigger(["PARTY ROCKERS IN THE HOU"], "SE TONIGHT"),
+      new BasicResponseTrigger([/nani/, /何/],
+        'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
+      new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
     ];
 }
 
@@ -67,8 +68,8 @@ export default class GroupMeBot {
 
   private findTrigger(messageText: string): IResponseTrigger | null {
     for (const trigger of this.responseTriggers) {
-      for (const triggerWord of trigger.triggerWords) {
-        if (messageText.toLowerCase().includes(triggerWord.toLowerCase())) {
+      for (const triggerPattern of trigger.triggerPatterns) {
+        if (triggerPattern.test(messageText)) {
           return trigger;
         }
       }
