@@ -6,11 +6,11 @@ export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
     /^NUT/i,
     /🥜/,
     /^N U T/i,
-    /^NU T/,
-    /^N UT/,
-    /^n\.u\.t/,
-    /^n,u,t/,
-    /^n;u;t/]
+    /^NU T/i,
+    /^N UT/i,
+    /^n\.u\.t/i,
+    /^n,u,t/i,
+    /^n;u;t/i]
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     let response: IBotResponse;
