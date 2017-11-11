@@ -1,8 +1,9 @@
 import axios from 'axios'
 import * as humanizeList from 'humanize-list'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { BaseTrigger } from './BaseTrigger'
 
-export default class WeatherResponseTrigger implements IResponseTrigger {
+export default class WeatherResponseTrigger extends BaseTrigger {
   public triggerPatterns = [/^@weather/]
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { BaseTrigger } from './BaseTrigger'
 
-export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
+export default class NoNutNovemberResponseTrigger extends BaseTrigger {
   public triggerPatterns = [
     /^NUT/i,
     /🥜/,

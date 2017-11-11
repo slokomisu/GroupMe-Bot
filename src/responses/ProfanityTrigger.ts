@@ -1,10 +1,11 @@
 import * as Filter from 'bad-words'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
 import NoNutNovemberResponseTrigger from './NoNutNovemberResponseTrigger'
+import { BaseTrigger } from './BaseTrigger'
 
 const filter = new Filter()
 
-export class ProfanityTrigger implements IResponseTrigger {
+export class ProfanityTrigger extends BaseTrigger {
   triggerPatterns: RegExp[] = [/.*/]
 
   async respond (message: IGroupMeMessage): Promise<IBotResponse> {

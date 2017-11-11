@@ -5,11 +5,14 @@ import {
   IGroupMeMessage,
   IResponseTrigger,
 } from '../types'
+import { BaseTrigger } from './BaseTrigger'
 
-export default class EverybodyResponseTrigger implements IResponseTrigger {
+export default class EverybodyResponseTrigger extends BaseTrigger {
   public triggerPatterns = [/@everyone/, /@everybody/]
 
-  constructor(public accessToken: string) {}
+  constructor (public accessToken: string) {
+    super()
+  }
 
   public async respond(message: IGroupMeMessage, triggerArgs?: string): Promise<IBotResponse> {
     const { mentionList, mentionAttachment } = await this.getMentionList(message);
@@ -25,7 +28,8 @@ export default class EverybodyResponseTrigger implements IResponseTrigger {
     try {
       const response =
         await axios.get(`https://api.groupme.com/v3/groups/${group_id}?token=${process.env.ACCESS_TOKEN}`);
-      const members = response.data.response.members.filter((member) => member.user_id != sender_id);
+      const members = response.data.response.members
+        .filter((member) => member.user_id != sender_id)
       const mentionList: string = members.map((member) => {
         return `@${member.nickname}`;
       }).join(" ");
