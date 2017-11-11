@@ -1,11 +1,3 @@
 language: node_js
-before_install:
-- openssl aes-256-cbc -K $encrypted_86d62f26dcdd_key -iv $encrypted_86d62f26dcdd_iv
-  -in service-account.json.enc -out .\\service-account.json -d
 install:
   - npm install
-deploy:
-  skip_cleanup: true
-  provider: gae
-  keyfile: service-account.json.enc
-  project: groupme-bot-185300
