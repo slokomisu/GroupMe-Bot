@@ -108,8 +108,7 @@ export default class GroupMeBot {
         messageRequest);
       console.log(messageRequest);
       console.log(messageRequest.attachments)
-      console.log(messageRequest.attachments[0].loci)
-      console.log(messageRequest.attachments[0].user_ids)
+      console.log(messageRequest.attachments[0])
       return true;
     } catch (e) {
       console.error(e);
