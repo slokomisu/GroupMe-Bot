@@ -17,7 +17,7 @@ export default class EverybodyResponseTrigger implements IResponseTrigger {
       attachments: mentionAttachment,
       responseText: `${message.name} wants your attention! ${mentionList}`,
     };
-    return Promise.resolve(response);
+    return response
   }
 
   private async getMentionList(message: IGroupMeMessage): Promise<{mentionList: string, mentionAttachment: any}> {
@@ -49,7 +49,7 @@ export default class EverybodyResponseTrigger implements IResponseTrigger {
     const loci = [];
     members.forEach((member) => {
       const startIndex = mentionList.indexOf(member.nickname) + offset;
-      const length = member.nickname.length + 1
+      const length = member.nickname.length
       const lociItem = [startIndex, length];
       loci.push(lociItem);
     });
