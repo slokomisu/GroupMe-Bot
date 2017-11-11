@@ -32,14 +32,19 @@ export default class GroupMeBot {
       return false;
     }
 
-    const trigger = this.findTrigger(message.text);
-    if (!trigger) {
+    const triggers = this.findTriggers(message.text)
+    if (!triggers) {
       return false;
     }
-    const response: IBotResponse = await trigger.respond(message);
-    if (response) {
-      return await this.sendMessage(response);
-    }
+    let responseSent = false
+
+    triggers.forEach(async trigger => {
+      const response: IBotResponse = await trigger.respond(message)
+      if (response) {
+        responseSent = await this.sendMessage(response)
+      }
+    })
+    return responseSent
   }
 
   private registerResponseTriggers() {
@@ -66,19 +71,19 @@ export default class GroupMeBot {
     });
   }
 
-  private findTrigger(messageText: string): IResponseTrigger | null {
+  private findTriggers (messageText: string): IResponseTrigger[] | null {
+    const triggers: IResponseTrigger[] = []
     for (const trigger of this.responseTriggers) {
       for (const triggerPattern of trigger.triggerPatterns) {
         if (triggerPattern.test(messageText)) {
-          return trigger;
+          triggers.push(trigger)
         }
       }
     }
 
-    return null;
+    return triggers.length > 0 ? triggers : null
   }
 
-  private async removeMember() {}
 
   private async sendMessage(response: IBotResponse): Promise<boolean> {
     let messageRequest: IMessageRequest;
