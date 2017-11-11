@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/index.js --debug 9090",
     "postinstall": "npm run build",
     "build": "tsc"
   },

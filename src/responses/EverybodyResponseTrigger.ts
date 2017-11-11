@@ -49,7 +49,7 @@ export default class EverybodyResponseTrigger implements IResponseTrigger {
     const loci = [];
     members.forEach((member) => {
       const startIndex = mentionList.indexOf(member.nickname) + offset;
-      const length = member.nickname.length;
+      const length = member.nickname.length + 1
       const lociItem = [startIndex, length];
       loci.push(lociItem);
     });
