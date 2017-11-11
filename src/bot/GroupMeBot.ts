@@ -58,7 +58,7 @@ export default class GroupMeBot {
       new BasicResponseTrigger([/nani/, /何/],
         'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
       new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
-      new ProfanityTrigger(),
+      // new ProfanityTrigger(),
     ];
 }
 
