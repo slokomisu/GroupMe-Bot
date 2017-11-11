@@ -100,6 +100,9 @@ export default class GroupMeBot {
       const request = await axios.post("https://api.groupme.com/v3/bots/post",
         messageRequest);
       console.log(messageRequest);
+      console.log(messageRequest.attachments)
+      console.log(messageRequest.attachments[0].loci)
+      console.log(messageRequest.attachments[0].user_ids)
       return true;
     } catch (e) {
       console.error(e);
