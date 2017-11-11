@@ -14,6 +14,10 @@ export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     let response: IBotResponse;
+    if (new Date().getMonth() !== 10) {
+      return undefined
+    }
+
     const memberRemoved = await this.removeMember(message.group_id,
       message.sender_id)
     if (memberRemoved) {

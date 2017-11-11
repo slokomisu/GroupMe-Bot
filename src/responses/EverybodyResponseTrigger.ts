@@ -7,7 +7,7 @@ import {
 } from '../types'
 
 export default class EverybodyResponseTrigger implements IResponseTrigger {
-  public triggerPatterns = [/^@everyone/, /^@everybody/]
+  public triggerPatterns = [/@everyone/, /@everybody/]
 
   constructor(public accessToken: string) {}
 
