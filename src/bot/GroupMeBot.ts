@@ -27,6 +27,10 @@ export default class GroupMeBot {
 
   public async processMessage(message: IGroupMeMessage): Promise<boolean> {
     console.log(message);
+    if (message.attachments) {
+      console.log(message.attachments)
+      console.log(message.attachments[0])
+    }
 
     // await this.addMessageToCreepDB(message);
     if (message.sender_type === SenderType.Bot) {
@@ -107,10 +111,6 @@ export default class GroupMeBot {
       const request = await axios.post("https://api.groupme.com/v3/bots/post",
         messageRequest);
       console.log(messageRequest);
-      if (messageRequest.attachments) {
-        console.log(messageRequest.attachments)
-        console.log(messageRequest.attachments[0])
-      }
       return true;
     } catch (e) {
       console.error(e);
