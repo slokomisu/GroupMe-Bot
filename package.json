@@ -17,6 +17,7 @@
     "@types/express": "^4.0.37",
     "@types/node": "^8.0.46",
     "axios": "^0.16.2",
+    "bad-words": "^1.6.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
