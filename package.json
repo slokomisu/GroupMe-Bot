@@ -6,7 +6,7 @@
   "repository": "https://github.com/slokomisu/General-GroupMe-Bot/",
   "scripts": {
     "start": "node dist/index.js ",
-    "test": "mocha -r ts-node/register test/**/*.ts",
+    "test": "mocha -r ts-node/register dist/tests/**/*.ts",
     "postinstall": "npm run build",
     "build": "tsc"
   },
