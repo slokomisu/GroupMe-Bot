@@ -50,7 +50,54 @@ describe('GroupMeBot', () => {
       })
 
     })
+
+    describe('EverybodyResponseTrigger', () => {
+      let trigger: EverybodyResponseTrigger;
+      let message: IGroupMeMessage;
+      beforeEach(() => {
+        trigger = new EverybodyResponseTrigger(process.env.ACCESS_TOKEN)
+        message = {
+          attachments: [],
+          avatar_url: 'https://i.groupme.com/123456789',
+          created_at: new Date(1302623328),
+          group_id: '32968213',
+          id: '151028786611978001',
+          name: 'Noah Guillory',
+          sender_id: '22337091',
+          sender_type: SenderType.User,
+          source_guid: 'GUID',
+          text: `@everyone`,
+          user_id: '22337091',
+        }
+      })
+
+      it('Triggers on @everyone', () => {
+        const triggered = trigger.isTrigger(message.text);
+        expect(triggered).to.be.eq(true);
+      })
+
+      it('Triggers on @everybody', () => {
+        message.text = '@everybody';
+        const triggered = trigger.isTrigger(message.text);
+        expect(triggered).to.be.eq(true);
+      })
+
+      it('Gives a proper response', async () => {
+        const expectedResponse = 'Noah Guillory wants your attention! @Test Account @Zo';
+        const response = await trigger.respond(message);
+        expect(response.responseText).to.eq(expectedResponse);
+      })
+
+      it('Mention attachments are valid', async () => {
+        const expectedAttachment = {
+          loci: [ [ 37, 12 ], [ 51, 2 ] ],
+          type: 'mentions',
+          user_ids: [ '51242239', '46185459' ]
+        }
+        const response = await trigger.respond(message);
+        expect(response.attachments).to.deep.eq(expectedAttachment);
   })
+
 
 })
 
