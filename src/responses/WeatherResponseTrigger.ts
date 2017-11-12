@@ -1,8 +1,9 @@
 import axios from 'axios'
 import * as humanizeList from 'humanize-list'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { BaseTrigger } from './BaseTrigger'
 
-export default class WeatherResponseTrigger implements IResponseTrigger {
+export default class WeatherResponseTrigger extends BaseTrigger {
   public triggerPatterns = [/^@weather/]
 
   public async respond(message: IGroupMeMessage): Promise<IBotResponse> {
@@ -22,10 +23,9 @@ export default class WeatherResponseTrigger implements IResponseTrigger {
     try {
       const response = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?q=${encodedCity}&APPID=${process.env.WEATHER_API_KEY}`);
-      console.log(response.data);
       return this.makeWeatherMessage(response.data);
     } catch (error) {
-      console.log("Get Weather Data Error", error);
+      return 'No City Found'
     }
   }
 

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { BaseTrigger } from './BaseTrigger'
 
-export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
+export default class NoNutNovemberResponseTrigger extends BaseTrigger {
   public triggerPatterns = [
     /^NUT/i,
     /🥜/,
@@ -11,6 +12,28 @@ export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
     /^n\.u\.t/i,
     /^n,u,t/i,
     /^n;u;t/i]
+
+
+  public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
+    let response: IBotResponse
+    if (new Date().getMonth() !== 10) {
+      return undefined
+    }
+
+    const memberRemoved = await NoNutNovemberResponseTrigger.removeMember(
+      message.group_id,
+      message.sender_id)
+    if (memberRemoved) {
+      response = {
+        responseText: `Removed ${message.name} for violating N🥜N`,
+      }
+    } else {
+      response = {
+        responseText: `${message.name} owns this shit, so he can't go.`,
+      }
+    }
+    return response
+  }
 
   public static async getMemberId (
     groupId: string, senderId: string): Promise<string> {
@@ -36,26 +59,7 @@ export default class NoNutNovemberResponseTrigger implements IResponseTrigger {
     }
   }
 
-  public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
-    let response: IBotResponse
-    if (new Date().getMonth() !== 10) {
-      return undefined
-    }
 
-    const memberRemoved = await NoNutNovemberResponseTrigger.removeMember(
-      message.group_id,
-      message.sender_id)
-    if (memberRemoved) {
-      response = {
-        responseText: `Removed ${message.name} for violating N🥜N`,
-      }
-    } else {
-      response = {
-        responseText: `${message.name} owns this shit, so he can't go.`,
-      }
-    }
-    return response
-  }
 
 
 }
