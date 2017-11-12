@@ -23,7 +23,6 @@ export default class WeatherResponseTrigger extends BaseTrigger {
     try {
       const response = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?q=${encodedCity}&APPID=${process.env.WEATHER_API_KEY}`);
-      console.log(response.data);
       return this.makeWeatherMessage(response.data);
     } catch (error) {
       return 'No City Found'
