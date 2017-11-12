@@ -26,7 +26,7 @@ export default class WeatherResponseTrigger extends BaseTrigger {
       console.log(response.data);
       return this.makeWeatherMessage(response.data);
     } catch (error) {
-      console.log("Get Weather Data Error", error);
+      return 'No City Found'
     }
   }
 

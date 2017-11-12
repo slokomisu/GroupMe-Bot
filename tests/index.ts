@@ -4,6 +4,9 @@ import BasicResponseTrigger from '../src/responses/BasicResponseTrigger';
 import { IBotResponse, IGroupMeMessage, SenderType } from '../src/types'
 import EverybodyResponseTrigger from '../src/responses/EverybodyResponseTrigger'
 import LineResponseTrigger from '../src/responses/LineResponseTrigger'
+import NoNutNovemberResponseTrigger from '../src/responses/NoNutNovemberResponseTrigger'
+import { ProfanityTrigger } from '../src/responses/ProfanityTrigger'
+import WeatherResponseTrigger from '../src/responses/WeatherResponseTrigger'
 
 describe('GroupMeBot', () => {
   let bot: GroupMeBot
@@ -144,6 +147,106 @@ describe('GroupMeBot', () => {
       it('Gives the correct response', async () => {
         const response: IBotResponse = await trigger.respond(message);
         expect(response.responseText).to.eql('IT\'S A PROBATIONARY CLASS MATT');
+      })
+
+    })
+
+    describe('NoNutNovemberResponseTrigger', () => {
+      let trigger: NoNutNovemberResponseTrigger
+      let message: IGroupMeMessage
+      beforeEach(() => {
+        trigger = new NoNutNovemberResponseTrigger()
+        message = {
+          attachments: [],
+          avatar_url: 'https://i.groupme.com/123456789',
+          created_at: new Date(1302623328),
+          group_id: '32968213',
+          id: '151028786611978001',
+          name: 'Test Account',
+          sender_id: '51242239',
+          sender_type: SenderType.User,
+          source_guid: 'GUID',
+          text: '',
+          user_id: '51242239',
+        }
+      })
+
+      it('Triggers for \'nut\'', () => {
+        message.text = 'nut for days my dudes'
+        const triggered = trigger.isTrigger(message.text)
+        expect(triggered).to.be.true
+      })
+
+      it('Triggers for \'N U T\' ', () => {
+        message.text = 'N U T on my honnies'
+        const triggered = trigger.isTrigger(message.text)
+        expect(triggered).to.be.true
+      })
+
+    })
+
+    describe('ProfanityTrigger', () => {
+      let trigger: ProfanityTrigger
+      let message: IGroupMeMessage
+      beforeEach(() => {
+        trigger = new ProfanityTrigger()
+        message = {
+          attachments: [],
+          avatar_url: 'https://i.groupme.com/123456789',
+          created_at: new Date(1302623328),
+          group_id: '32968213',
+          id: '151028786611978001',
+          name: 'Test Account',
+          sender_id: '51242239',
+          sender_type: SenderType.User,
+          source_guid: 'GUID',
+          text: '',
+          user_id: '51242239',
+        }
+      })
+
+      it('Triggers on \'fuck\' ', () => {
+        message.text = 'Oh, would you fuck that for me hon?'
+        const triggered = trigger.isTrigger(message.text)
+        expect(triggered).to.be.true
+      })
+
+    })
+
+    describe('WeatherResponseTrigger', () => {
+      let trigger: WeatherResponseTrigger
+      let message: IGroupMeMessage
+      beforeEach(() => {
+        trigger = new WeatherResponseTrigger()
+        message = {
+          attachments: [],
+          avatar_url: 'https://i.groupme.com/123456789',
+          created_at: new Date(1302623328),
+          group_id: '32968213',
+          id: '151028786611978001',
+          name: 'Test Account',
+          sender_id: '51242239',
+          sender_type: SenderType.User,
+          source_guid: 'GUID',
+          text: '',
+          user_id: '51242239',
+        }
+      })
+
+      it('Gives a no city found response when getting an invalid city',
+        async () => {
+          message.text = '@weather sdlkfjasndkfjnaskdjfn'
+          const response = await trigger.respond(message)
+          expect(response.responseText).to.eql('No City Found')
+        })
+
+      it('Gives a city response with a valid city', async () => {
+        message.text = '@weather Lake Charles'
+        const response = await trigger.respond(message)
+        expect(response.responseText)
+          .to
+          .match(
+            /It is \d\d°F in Lake Charles, US with a humidity of \d\d% with .*/)
       })
 
     })
