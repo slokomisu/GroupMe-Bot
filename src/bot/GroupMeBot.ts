@@ -57,8 +57,7 @@ export default class GroupMeBot {
     this.responseTriggers = [
       new EverybodyResponseTrigger(this.accessToken),
       new WeatherResponseTrigger(),
-      new LineResponseTrigger([/line/, /LB/],
-        'IT\'S A PROBATIONARY CLASS MATT'),
+      new LineResponseTrigger(),
       new NoNutNovemberResponseTrigger(),
       new BasicResponseTrigger([/nani/, /何/],
         'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),

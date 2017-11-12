@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/slokomisu/General-GroupMe-Bot/",
   "scripts": {
     "start": "node dist/index.js ",
     "test": "mocha -r ts-node/register test/**/*.ts",
@@ -34,6 +35,7 @@
     "chai": "^4.1.2",
     "dotenv": "^4.0.0",
     "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3"
   }
