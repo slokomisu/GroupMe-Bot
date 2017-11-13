@@ -4,14 +4,14 @@ import { BaseTrigger } from './BaseTrigger'
 
 export default class NoNutNovemberResponseTrigger extends BaseTrigger {
   public triggerPatterns = [
-    /^NUT/i,
+    /NUT/i,
     /🥜/,
-    /^N U T/i,
-    /^NU T/i,
-    /^N UT/i,
-    /^n\.u\.t/i,
-    /^n,u,t/i,
-    /^n;u;t/i]
+    /N U T/i,
+    /NU T/i,
+    /N UT/i,
+    /n\.u\.t/i,
+    /n,u,t/i,
+    /n;u;t/i]
 
 
   public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
