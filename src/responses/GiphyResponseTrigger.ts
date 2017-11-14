@@ -51,7 +51,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
       const response = await axios.get(
         `https://api.giphy.com/v1/gifs/search?q=${searchArgs.join(
           ' ')}&api_key=${process.env.GIPHY_API_KEY}`)
-      return response.data.data[0].images.downsized.url
+      return response.data.data[0].images.downsized_medium.url
     } catch (error) {
       throw new Error('Search GIF Error')
     }
