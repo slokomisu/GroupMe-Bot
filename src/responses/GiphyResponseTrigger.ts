@@ -14,11 +14,9 @@ export class GiphyResponseTrigger extends BaseTrigger {
 
     // If 1st argument is random, then we get a random gif
     try {
-      if (searchArgs[0] === 'random') {
+      if (searchArgs.length === 0) {
         gifUrl = await this.getRandomGif()
       } else {
-        // Otherwise we assume the arguments are search terms so we search those
-        // terms and grab the top result
         gifUrl = await this.searchGif(searchArgs)
       }
     } catch (error) {
