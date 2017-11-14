@@ -9,7 +9,8 @@ export class GiphyResponseTrigger extends BaseTrigger {
   private giphyBaseUrl = 'https://api.giphy.com'
 
   async respond (message: IGroupMeMessage): Promise<IBotResponse> {
-    const searchArgs: string[] = message.text.split(' ').slice(1)
+    const searchArgs: string[] = message.text.split(' ')
+      .slice(message.text.split(' ').findIndex(token => token === '@gif') + 1)
     let gifUrl: string
 
     // If 1st argument is random, then we get a random gif
