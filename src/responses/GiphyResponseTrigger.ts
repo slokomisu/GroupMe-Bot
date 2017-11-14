@@ -39,7 +39,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
     try {
       const response = await axios.get(
         `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}`)
-      return response.data.data.image_original_url
+      return response.data.data.fixed_height_downsampled_url
     } catch (error) {
       console.error('Get Gif Data Error', error)
     }
@@ -51,7 +51,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
       const response = await axios.get(
         `https://api.giphy.com/v1/gifs/search?q=${searchArgs.join(
           ' ')}&api_key=${process.env.GIPHY_API_KEY}`)
-      return response.data.data[0].images.original.url
+      return response.data.data[0].images.downsized.url
     } catch (error) {
       throw new Error('Search GIF Error')
     }
