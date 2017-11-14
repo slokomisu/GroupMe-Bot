@@ -10,12 +10,14 @@ export interface IResponseTrigger {
 export interface IBotResponse {
   responseText: string;
   attachments?: any[];
+  picture_url?: string;
 }
 
 export interface IMessageRequest {
   text: string;
   attachments?: any[];
   bot_id: string;
+  picture_url?: string;
 }
 
 // GroupMe Interfaces

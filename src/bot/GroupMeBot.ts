@@ -13,6 +13,7 @@ import {
 } from '../types'
 import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger'
 import { BaseTrigger } from '../responses/BaseTrigger'
+import { GiphyResponseTrigger } from '../responses/GiphyResponseTrigger'
 
 export default class GroupMeBot {
   private botId: string
@@ -27,13 +28,14 @@ export default class GroupMeBot {
 
   public async processMessage (message: IGroupMeMessage): Promise<IBotResponse> {
     console.log(message)
-    let response: IBotResponse
     if (message.attachments) {
       console.log(message.attachments)
       console.log(message.attachments[0])
     }
 
-    // await this.addMessageToCreepDB(message);
+    let response: IBotResponse
+
+
     if (message.sender_type === SenderType.Bot) {
       return undefined
     }
@@ -50,7 +52,8 @@ export default class GroupMeBot {
         responseSent = await this.sendMessage(response)
       }
     })
-    return response
+
+    return undefined
   }
 
   private registerResponseTriggers () {
@@ -62,6 +65,7 @@ export default class GroupMeBot {
       new BasicResponseTrigger([/nani/, /何/],
         'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
       new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
+      new GiphyResponseTrigger(),
     ]
   }
 
@@ -95,11 +99,13 @@ export default class GroupMeBot {
         attachments: [response.attachments],
         bot_id: this.botId,
         text: response.responseText,
+        picture_url: response.picture_url || null,
       }
     } else {
       messageRequest = {
         bot_id: this.botId,
         text: response.responseText,
+        picture_url: response.picture_url || null,
       }
     }
 
