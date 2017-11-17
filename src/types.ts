@@ -2,6 +2,7 @@
 export interface IResponseTrigger {
   triggerPatterns: RegExp[];
   accessToken?: string;
+  allowedGroups: string[];
 
   isTrigger(messageText: string): boolean;
   respond(message: IGroupMeMessage): Promise<IBotResponse>;
