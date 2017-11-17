@@ -8,30 +8,33 @@ export class GiphyResponseTrigger extends BaseTrigger {
   triggerPatterns = [/@gif/]
   private giphyBaseUrl = 'https://api.giphy.com'
 
-  async respond (message: IGroupMeMessage): Promise<IBotResponse> {
-    const searchArgs: string[] = message.text.split(' ')
-      .slice(message.text.split(' ').findIndex(token => token === '@gif') + 1)
-    let gifUrl: string
 
-    // If 1st argument is random, then we get a random gif
-    try {
-      if (searchArgs.length === 0) {
-        gifUrl = await this.getRandomGif()
-      } else {
-        gifUrl = await this.searchGif(searchArgs)
+  async respond (message: IGroupMeMessage): Promise<IBotResponse> {
+    if (this.isShitpost(message.group_id)) {
+      const searchArgs: string[] = message.text.split(' ')
+        .slice(message.text.split(' ').findIndex(token => token === '@gif') + 1)
+      let gifUrl: string
+
+      // If 1st argument is random, then we get a random gif
+      try {
+        if (searchArgs.length === 0) {
+          gifUrl = await this.getRandomGif()
+        } else {
+          gifUrl = await this.searchGif(searchArgs)
+        }
+      } catch (error) {
+        console.error('Something went wrong trying to get a GIF from Giphy')
+        return undefined
       }
-    } catch (error) {
-      console.error('Something went wrong trying to get a GIF from Giphy')
-      return undefined
-    }
-    const getImageServiceURL = util.promisify(
-      GroupMeImageService.getImageServiceURL)
-    try {
-      const url = await getImageServiceURL(gifUrl)
-    } catch (error) {
-      return {
-        responseText: 'GIF TIME',
-        picture_url: <string> error.url,
+      const getImageServiceURL = util.promisify(
+        GroupMeImageService.getImageServiceURL)
+      try {
+        const url = await getImageServiceURL(gifUrl)
+      } catch (error) {
+        return {
+          responseText: 'GIF TIME',
+          picture_url: <string> error.url,
+        }
       }
     }
   }

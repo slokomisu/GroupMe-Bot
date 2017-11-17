@@ -6,11 +6,14 @@ export default class BasicResponseTrigger extends BaseTrigger {
     super()
   }
 
-  public respond(message: IGroupMeMessage): Promise<IBotResponse> {
-    const response: IBotResponse = {
-      responseText: this.response,
-    };
-    return Promise.resolve(response);
+  public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
+    if (this.isShitpost(message.group_id)) {
+      return {
+        responseText: this.response,
+      }
+    } else {
+      return undefined
+    }
   }
 
 }
