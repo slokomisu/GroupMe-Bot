@@ -25,7 +25,7 @@ describe('GroupMeBot', () => {
           attachments: [],
           avatar_url: 'https://i.groupme.com/123456789',
           created_at: new Date(1302623328),
-          group_id: '32968213',
+          group_id: '36300579',
           id: '151028786611978001',
           name: 'Test Account',
           sender_id: '51242239',
