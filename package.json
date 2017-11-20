@@ -1,7 +1,7 @@
 {
   "name": "groupme-reminderbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A GroupMe Bot that takes various commands and does various tasks for my GroupMe groups",
   "main": "index.js",
   "repository": "https://github.com/slokomisu/General-GroupMe-Bot/",
   "scripts": {
@@ -11,9 +11,9 @@
     "build": "tsc"
   },
   "engines": {
-    "node": "v8.1.4"
+    "node": "v8.9.1"
   },
-  "author": "",
+  "author": "Noah Guillory",
   "license": "ISC",
   "dependencies": {
     "@types/chai": "^4.0.4",
