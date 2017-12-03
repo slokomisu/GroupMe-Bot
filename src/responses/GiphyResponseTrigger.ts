@@ -32,7 +32,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
         const url = await getImageServiceURL(gifUrl)
       } catch (error) {
         return {
-          responseText: 'GIF TIME',
+          responseText: '🎄🎅GIF TIME🎄🎅',
           picture_url: <string> error.url,
         }
       }
