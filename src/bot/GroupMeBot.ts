@@ -1,75 +1,76 @@
-import axios from 'axios'
-import Message from '../Models/Message'
-import BasicResponseTrigger from '../responses/BasicResponseTrigger'
-import EverybodyResponseTrigger from '../responses/EverybodyResponseTrigger'
-import LineResponseTrigger from '../responses/LineResponseTrigger'
-import WeatherResponseTrigger from '../responses/WeatherResponseTrigger'
+import axios from 'axios';
+import Message from '../Models/Message';
+import BasicResponseTrigger from '../responses/BasicResponseTrigger';
+import EverybodyResponseTrigger from '../responses/EverybodyResponseTrigger';
+import LineResponseTrigger from '../responses/LineResponseTrigger';
+import WeatherResponseTrigger from '../responses/WeatherResponseTrigger';
 import {
   IBotResponse,
   IGroupMeMessage,
   IMessageRequest,
   IResponseTrigger,
   SenderType,
-} from '../types'
-import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger'
-import { BaseTrigger } from '../responses/BaseTrigger'
-import { GiphyResponseTrigger } from '../responses/GiphyResponseTrigger'
+} from '../types';
+import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger';
+import {BaseTrigger} from '../responses/BaseTrigger';
+import {GiphyResponseTrigger} from '../responses/GiphyResponseTrigger';
+import {RouletteTrigger} from '../responses/RouletteTrigger';
 
 export default class GroupMeBot {
-  private botId: string
-  private accessToken: string
-  private responseTriggers: IResponseTrigger[]
+  private botId: string;
+  private accessToken: string;
+  private responseTriggers: IResponseTrigger[];
 
-  constructor (botId: string, accessToken: string) {
-    this.botId = botId
-    this.accessToken = accessToken
-    this.registerResponseTriggers()
+  constructor(botId: string, accessToken: string) {
+    this.botId = botId;
+    this.accessToken = accessToken;
+    this.registerResponseTriggers();
   }
 
-  public async processMessage (message: IGroupMeMessage): Promise<IBotResponse> {
-    console.log(message)
+  public async processMessage(message: IGroupMeMessage): Promise<IBotResponse> {
+    console.log(message);
     if (message.attachments) {
-      console.log(message.attachments)
-      console.log(message.attachments[0])
+      console.log(message.attachments);
+      console.log(message.attachments[0]);
     }
 
-    let response: IBotResponse
-
+    let response: IBotResponse;
 
     if (message.sender_type === SenderType.Bot) {
-      return undefined
+      return undefined;
     }
 
-    const triggers = this.findTriggers(message.text)
+    const triggers = this.findTriggers(message.text);
     if (!triggers) {
-      return undefined
+      return undefined;
     }
-    let responseSent = false
+    let responseSent = false;
 
     triggers.forEach(async trigger => {
-      response = await trigger.respond(message)
+      response = await trigger.respond(message);
       if (response) {
-        responseSent = await this.sendMessage(response)
+        responseSent = await this.sendMessage(response);
       }
-    })
+    });
 
-    return undefined
+    return undefined;
   }
 
-  private registerResponseTriggers () {
+  private registerResponseTriggers() {
     this.responseTriggers = [
       new EverybodyResponseTrigger(this.accessToken),
       new WeatherResponseTrigger(),
       new LineResponseTrigger(),
       new NoNutNovemberResponseTrigger(),
       new BasicResponseTrigger([/nani/, /何/],
-        'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
+          'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
       new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
       new GiphyResponseTrigger(),
-    ]
+        new RouletteTrigger(),
+    ];
   }
 
-  private async addMessageToCreepDB (message: IGroupMeMessage) {
+  private async addMessageToCreepDB(message: IGroupMeMessage) {
     await Message.create({
       created_at: new Date(),
       group_id: message.group_id,
@@ -77,22 +78,22 @@ export default class GroupMeBot {
       name: message.name,
       sender_id: message.sender_id,
       text: message.text,
-    })
+    });
   }
 
-  private findTriggers (messageText: string): IResponseTrigger[] | null {
-    const triggers: IResponseTrigger[] = []
+  private findTriggers(messageText: string): IResponseTrigger[] | null {
+    const triggers: IResponseTrigger[] = [];
     for (const trigger of this.responseTriggers) {
       if (trigger.isTrigger(messageText)) {
-        triggers.push(trigger)
+        triggers.push(trigger);
       }
     }
 
-    return triggers.length > 0 ? triggers : null
+    return triggers.length > 0 ? triggers : null;
   }
 
-  private async sendMessage (response: IBotResponse): Promise<boolean> {
-    let messageRequest: IMessageRequest
+  private async sendMessage(response: IBotResponse): Promise<boolean> {
+    let messageRequest: IMessageRequest;
 
     if (response.attachments) {
       messageRequest = {
@@ -100,23 +101,23 @@ export default class GroupMeBot {
         bot_id: this.botId,
         text: response.responseText,
         picture_url: response.picture_url || null,
-      }
+      };
     } else {
       messageRequest = {
         bot_id: this.botId,
         text: response.responseText,
         picture_url: response.picture_url || null,
-      }
+      };
     }
 
     try {
       const request = await axios.post('https://api.groupme.com/v3/bots/post',
-        messageRequest)
-      console.log(messageRequest)
-      return true
+          messageRequest);
+      console.log(messageRequest);
+      return true;
     } catch (e) {
-      console.error(e)
-      return false
+      console.error(e);
+      return false;
     }
   }
 }
