@@ -88,7 +88,7 @@ describe('GroupMeBot', () => {
       })
 
       it('Gives a proper response', async () => {
-        const expectedResponse = 'Noah Guillory wants your attention! @Test Account @Zo';
+        const expectedResponse = 'Noah Guillory wants your attention! @Test Account';
         const response = await trigger.respond(message);
         expect(response.responseText).to.eq(expectedResponse);
       })
