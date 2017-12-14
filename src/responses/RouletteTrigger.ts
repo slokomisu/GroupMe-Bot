@@ -16,7 +16,7 @@ export class RouletteTrigger extends BaseTrigger {
         responseText: `🔫BOOM🔫 ${message.name} is dead.`
       }
     } else {
-      const streak = this.getStreak(message.sender_id);
+      const streak = await this.getStreak(message.sender_id);
       return {
         responseText: `CLICK. ${message.name} lives another day. Streak of ${streak}`
       }
@@ -24,25 +24,28 @@ export class RouletteTrigger extends BaseTrigger {
   }
 
   private async getStreak(userId: string): Promise<Number> {
-    const streak: Number = await Member.findOne({'groupmeUserId': userId}, 'rouletteStreak');
-    return streak;
+    const streak = await Member.findOne({'groupmeUserId': userId}, 'rouletteStreak');
+    return streak.rouletteStreak;
   }
 
   private async recordAttempt(result: string, userId: string) {
     const newResult = {
-      attemptTime: Date.now(),
+      attemptTime: new Date(Date.now()),
       attemptResult: result,
     };
 
+    let member = await Member.findOne({'groupmeUserId': userId});
+    if (!member) {
+      member = await Member.create({groupmeUserId: userId, attemptResults: [], rouletteStreak: 0});
+    }
+
     if (result === 'BOOM') {
-      const member = await Member.findOne({'groupmeUserId': userId});
       member.rouletteStreak = 0;
-      member.attemptResults.push(newResult);
+      member.rouletteResults.push(newResult);
       await member.save();
     } else {
-      const member = await Member.findOne({'groupmeUserId': userId});
       member.rouletteStreak++;
-      member.attemptResults.push(newResult);
+      member.rouletteResults.push(newResult);
       await member.save();
     }
   }
