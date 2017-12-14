@@ -97,7 +97,7 @@ describe('GroupMeBot', () => {
         const expectedAttachment = {
           loci: [ [ 37, 12 ], [ 51, 2 ] ],
           type: 'mentions',
-          user_ids: [ '51242239', '46185459' ]
+          user_ids: [ '51242239' ]
         }
         const response = await trigger.respond(message);
         expect(response.attachments).to.deep.eq(expectedAttachment);
