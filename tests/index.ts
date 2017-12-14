@@ -95,7 +95,7 @@ describe('GroupMeBot', () => {
 
       it('Mention attachments are valid', async () => {
         const expectedAttachment = {
-          loci: [ [ 37, 12 ], [ 51, 2 ] ],
+          loci: [ [ 37, 12 ] ],
           type: 'mentions',
           user_ids: [ '51242239' ]
         }
