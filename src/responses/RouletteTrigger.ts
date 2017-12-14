@@ -7,7 +7,7 @@ export class RouletteTrigger extends BaseTrigger {
   triggerPatterns = [/@roulette/];
 
   async respond(message: IGroupMeMessage): Promise<IBotResponse> {
-    const roll = getRandomIntInclusive(0, 6)
+    const roll = getRandomIntInclusive(1, 6)
     if (roll === 6) {
       await NoNutNovemberResponseTrigger.removeMember(message.group_id, message.sender_id);
       return {
