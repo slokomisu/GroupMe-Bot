@@ -36,9 +36,9 @@ export default class GroupMeBot {
 
     let response: IBotResponse;
 
-    if (message.sender_type === SenderType.Bot) {
-      return undefined;
-    }
+    // if (message.sender_type === SenderType.Bot) {
+    //   return undefined;
+    // }
 
     const triggers = this.findTriggers(message.text);
     if (!triggers) {
@@ -92,7 +92,7 @@ export default class GroupMeBot {
     return triggers.length > 0 ? triggers : null;
   }
 
-  private async sendMessage(response: IBotResponse): Promise<boolean> {
+  public async sendMessage(response: IBotResponse): Promise<boolean> {
     let messageRequest: IMessageRequest;
 
     if (response.attachments) {
