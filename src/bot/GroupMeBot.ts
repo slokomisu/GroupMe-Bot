@@ -12,9 +12,9 @@ import {
   SenderType,
 } from '../types';
 import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger';
-import {BaseTrigger} from '../responses/BaseTrigger';
 import {GiphyResponseTrigger} from '../responses/GiphyResponseTrigger';
 import {RouletteTrigger} from '../responses/RouletteTrigger';
+import CernerResponseTrigger from '../responses/CernerResponseTrigger'
 
 export default class GroupMeBot {
   private botId: string;
@@ -67,6 +67,7 @@ export default class GroupMeBot {
       new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
       new GiphyResponseTrigger(),
         new RouletteTrigger(),
+        new CernerResponseTrigger(this.accessToken),
     ];
   }
 
@@ -111,7 +112,7 @@ export default class GroupMeBot {
     }
 
     try {
-      const request = await axios.post('https://api.groupme.com/v3/bots/post',
+      await axios.post('https://api.groupme.com/v3/bots/post',
           messageRequest);
       console.log(messageRequest);
       return true;
