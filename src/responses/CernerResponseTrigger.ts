@@ -3,7 +3,6 @@ import {
   IBotResponse,
   IGroupMember,
   IGroupMeMessage,
-  IResponseTrigger,
 } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
