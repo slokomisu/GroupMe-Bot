@@ -37,9 +37,9 @@ export default class GroupMeBot {
 
     let response: IBotResponse;
 
-    // if (message.sender_type === SenderType.Bot) {
-    //   return undefined;
-    // }
+    if (message.sender_type === SenderType.Bot) {
+      return undefined;
+    }
 
     const triggers = this.findTriggers(message.text);
     if (!triggers) {
