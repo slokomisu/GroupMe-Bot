@@ -31,7 +31,7 @@ export default class CernerResponseTrigger extends BaseTrigger {
         await axios.get(`https://api.groupme.com/v3/groups/${group_id}?token=${process.env.ACCESS_TOKEN}`);
       const members = response.data.response.members
         .filter((member) => member.user_id != sender_id)
-        .fitler(member => blacklist.indexOf(member.user_id) === -1)
+        .filter(member => blacklist.indexOf(member.user_id) === -1)
       const mentionList: string = members.map((member) => {
         return `@${member.nickname}`;
       }).join(" ");
