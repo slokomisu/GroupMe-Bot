@@ -67,6 +67,7 @@ export default class GroupMeBot {
       new RouletteTrigger(),
       new CernerResponseTrigger(this.accessToken),
       new ILoveYouResponseTrigger(),
+      new BasicResponseTrigger([/absolutely not/i], 'take me to jail'),
     ];
   }
 
