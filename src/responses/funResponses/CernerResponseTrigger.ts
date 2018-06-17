@@ -3,8 +3,8 @@ import {
   IBotResponse,
   IGroupMember,
   IGroupMeMessage,
-} from '../types'
-import { BaseTrigger } from './BaseTrigger'
+} from '../../types'
+import { BaseTrigger } from '../BaseTrigger'
 
 export default class CernerResponseTrigger extends BaseTrigger {
   public triggerPatterns = [/@cerner/]

@@ -12,9 +12,10 @@ import {
   SenderType,
 } from '../types';
 import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger';
-import {GiphyResponseTrigger} from '../responses/GiphyResponseTrigger';
-import {RouletteTrigger} from '../responses/RouletteTrigger';
-import CernerResponseTrigger from '../responses/CernerResponseTrigger'
+import { GiphyResponseTrigger } from '../responses/GiphyResponseTrigger';
+import { RouletteTrigger } from '../responses/RouletteTrigger';
+import CernerResponseTrigger from '../responses/funResponses/CernerResponseTrigger'
+import ILoveYouResponseTrigger from '../responses/funResponses/ILoveYouResponseTrigger';
 
 export default class GroupMeBot {
   private botId: string;
@@ -62,12 +63,10 @@ export default class GroupMeBot {
       new WeatherResponseTrigger(),
       new LineResponseTrigger(),
       new NoNutNovemberResponseTrigger(),
-      new BasicResponseTrigger([/nani/, /何/],
-          'OMAE WA MOU SHINDERU\n\n💥💥💥💥💥💥💥'),
-      new BasicResponseTrigger([/PARTY ROCKERS IN THE HOU/], 'SE TONIGHT'),
       new GiphyResponseTrigger(),
-        new RouletteTrigger(),
-        new CernerResponseTrigger(this.accessToken),
+      new RouletteTrigger(),
+      new CernerResponseTrigger(this.accessToken),
+      new ILoveYouResponseTrigger(),
     ];
   }
 
@@ -113,7 +112,7 @@ export default class GroupMeBot {
 
     try {
       await axios.post('https://api.groupme.com/v3/bots/post',
-          messageRequest);
+        messageRequest);
       console.log(messageRequest);
       return true;
     } catch (e) {
