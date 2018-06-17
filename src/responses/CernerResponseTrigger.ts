@@ -24,7 +24,7 @@ export default class CernerResponseTrigger extends BaseTrigger {
 
   private async getMentionList(message: IGroupMeMessage): Promise<{mentionList: string, mentionAttachment: any}> {
     const {group_id, sender_id, name} = message;
-    const blacklist = ['30785471', '28958765', '24627817', '28620759']
+    const blacklist = process.env.BLACKLIST.split(',')
     try {
       const response =
         await axios.get(`https://api.groupme.com/v3/groups/${group_id}?token=${process.env.ACCESS_TOKEN}`);
