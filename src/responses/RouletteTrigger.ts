@@ -8,7 +8,7 @@ export class RouletteTrigger extends BaseTrigger {
 
   async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     const roll = getRandomIntInclusive(1, 6)
-    if (roll === 6 || roll === 5 || roll === 4) {
+    if (roll === 6) {
       await NoNutNovemberResponseTrigger.removeMember(message.group_id, message.sender_id);
       return {
         responseText: `🔫BOOM🔫 ${message.name} is dead.`
