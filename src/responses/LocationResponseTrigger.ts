@@ -52,7 +52,7 @@ export default class LocationResponseTrigger extends BaseTrigger {
         }
     });
 
-    return todaysRequests <= 180;
+    return todaysRequests <= parseInt(process.env.REQUEST_LIMIT, 10);
   }
 
   private buildResponse(placesResults) {
