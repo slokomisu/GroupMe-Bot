@@ -1,19 +1,17 @@
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as express from 'express'
-import * as Raven from 'raven';
+import Raven from './utils/RavenLogger';
 import * as helmet from 'helmet'
 import groupMeRoutes from './routes/groupme-routes'
 
 class App {
   public express: express.Application;
-  private raven;
 
   constructor() {
     this.express = express();
     this.initializeMiddleware();
     this.mountRoutes();
-    this.raven = Raven.config(process.env.DSN).install();
   }
 
   private initializeMiddleware() {
