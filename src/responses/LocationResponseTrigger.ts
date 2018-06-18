@@ -18,7 +18,8 @@ export default class LocationResponseTrigger extends BaseTrigger {
   }
 
   public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
-    if (await !this.withinFreeLimit()) {
+    const inFreeLimit = await this.withinFreeLimit();
+    if (!inFreeLimit) {
         return {
             responseText: 'Cannot make any more Google Maps requests due to free API usage limits'
         }
@@ -46,13 +47,13 @@ export default class LocationResponseTrigger extends BaseTrigger {
     const tomorrow = moment(today).endOf('day');
 
     const todaysRequests = await MapsRequest.find({
-        createdAt: {
+        requestDate: {
             $gte: today.toDate(),
             $lt: tomorrow.toDate(),
         }
     });
 
-    return todaysRequests <= parseInt(process.env.REQUEST_LIMIT, 10);
+    return todaysRequests.length <= parseInt(process.env.REQUEST_LIMIT, 10);
   }
 
   private buildResponse(placesResults) {
