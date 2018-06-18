@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Raven from '../utils/RavenLogger';
 import {
   IBotResponse,
   IGroupMember,
@@ -40,7 +41,7 @@ export default class EverybodyResponseTrigger extends BaseTrigger {
         mentionList,
       };
     } catch (error) {
-      console.error("Get Group Info Error:", error);
+      Raven.captureException(error);
     }
   }
 

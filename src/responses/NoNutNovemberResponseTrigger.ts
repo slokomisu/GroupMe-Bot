@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Raven from '../utils/RavenLogger';
 import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
@@ -45,7 +46,7 @@ export default class NoNutNovemberResponseTrigger extends BaseTrigger {
       const members: any[] = response.data.response.members
       return members.find(member => member.user_id === senderId).id
     } catch (error) {
-      console.error('Find Member Error', error)
+      Raven.captureException(error);
     }
   }
 
@@ -56,7 +57,7 @@ export default class NoNutNovemberResponseTrigger extends BaseTrigger {
       const response = await axios.post(`https://api.groupme.com/v3/groups/${groupId}/members/${id}/remove?token=${process.env.ACCESS_TOKEN}`);
       return response.status === 200
     } catch (error) {
-      console.error('Remove member error');
+      Raven.captureException(error);
       return false
     }
   }

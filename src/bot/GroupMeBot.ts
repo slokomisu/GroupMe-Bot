@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Raven from '../utils/RavenLogger';
 import Message from '../Models/Message';
 import BasicResponseTrigger from '../responses/BasicResponseTrigger';
 import EverybodyResponseTrigger from '../responses/EverybodyResponseTrigger';
@@ -117,7 +118,7 @@ export default class GroupMeBot {
       console.log(messageRequest);
       return true;
     } catch (e) {
-      console.error(e);
+      Raven.captureException(e);
       return false;
     }
   }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Raven from '../utils/RavenLogger';
 import { BaseTrigger } from './BaseTrigger'
 import { IBotResponse, IGroupMeMessage } from '../types'
 import { GroupMeImageService } from '../utils/GroupMeImageService'
@@ -23,7 +24,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
           gifUrl = await this.searchGif(searchArgs)
         }
       } catch (error) {
-        console.error('Something went wrong trying to get a GIF from Giphy')
+        Raven.captureException(error);
         return undefined
       }
       const getImageServiceURL = util.promisify(
@@ -45,7 +46,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
         `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}`)
       return response.data.data.fixed_height_downsampled_url
     } catch (error) {
-      console.error('Get Gif Data Error', error)
+      Raven.captureException(error);
     }
 
   }
@@ -58,7 +59,7 @@ export class GiphyResponseTrigger extends BaseTrigger {
       return response.data.data[Math.floor(Math.random() *
         response.data.data.length)].images.downsized_medium.url
     } catch (error) {
-      throw new Error('Search GIF Error')
+      Raven.captureException(error);
     }
   }
 
