@@ -17,6 +17,7 @@ import { GiphyResponseTrigger } from '../responses/GiphyResponseTrigger';
 import { RouletteTrigger } from '../responses/RouletteTrigger';
 import CernerResponseTrigger from '../responses/funResponses/CernerResponseTrigger'
 import ILoveYouResponseTrigger from '../responses/funResponses/ILoveYouResponseTrigger';
+import LocationResponseTrigger from '../responses/LocationResponseTrigger';
 
 export default class GroupMeBot {
   private botId: string;
@@ -69,6 +70,7 @@ export default class GroupMeBot {
       new CernerResponseTrigger(this.accessToken),
       new ILoveYouResponseTrigger(),
       new BasicResponseTrigger([/absolutely not/i], 'take me to jail'),
+      new LocationResponseTrigger(),
     ];
   }
 
