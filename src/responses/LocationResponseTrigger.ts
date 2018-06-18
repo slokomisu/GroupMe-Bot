@@ -77,7 +77,7 @@ export default class LocationResponseTrigger extends BaseTrigger {
   }
 
   private generateDirectionsURL(placeId): String {
-    return `https://www.google.com/maps/dir/?api=1&destination_place_id=${placeId}`;
+    return `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${placeId}`;
   }
 
 }
