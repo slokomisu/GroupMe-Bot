@@ -35,7 +35,7 @@ export default class LocationResponseTrigger extends BaseTrigger {
         responseText: 'Error searching for location.'
       }
     }
-    const responses = this.buildResponse(places.json.results);
+    const responses = this.buildResponse(places.json.results.slice(0, 3));
     const responseText = `Found some locations for your search '${query}': \n${responses}`;
     return {
       responseText
@@ -57,9 +57,9 @@ export default class LocationResponseTrigger extends BaseTrigger {
   }
 
   private buildResponse(placesResults) {
-    const names = placesResults.map(place => place.name).slice(0, 3);
-    const directionURLs = placesResults.map(place => this.generateDirectionsURL(place.place_id)).slice(0, 3);
-    const addresses = placesResults.map(place => place.formatted_address).slice(0, 3);
+    const names = placesResults.map(place => place.name);
+    const directionURLs = placesResults.map(place => this.generateDirectionsURL(place.place_id));
+    const addresses = placesResults.map(place => place.formatted_address);
 
     const responses = [];
     for (let i = 0; i < names.length; i++) {
