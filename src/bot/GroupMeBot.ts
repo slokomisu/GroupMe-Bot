@@ -39,7 +39,7 @@ export default class GroupMeBot {
 
     let response: IBotResponse;
 
-    if (message.sender_type === SenderType.Bot) {
+    if (message.sender_type === SenderType.Bot || message.sender_id === '37037125') {
       return undefined;
     }
 
