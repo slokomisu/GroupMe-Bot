@@ -13,7 +13,7 @@ export default class RouletteStatsResponseTrigger extends BaseTrigger {
         const deathAverage = booms / results.length;
 
         return {
-            responseText: `${message.name} dies from the roulette ${deathAverage * 100}% of the time.\nTotal attempts: ${results.length}.\nTotal clicks: ${clicks}.\nTotal deaths: ${booms}`;
+            responseText: `${message.name} dies from the roulette ${deathAverage * 100}% of the time.\nTotal attempts: ${results.length}.\nTotal clicks: ${clicks}.\nTotal deaths: ${booms}`,
         }
     }
 }
