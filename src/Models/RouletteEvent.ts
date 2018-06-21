@@ -12,5 +12,5 @@ const rouletteEventSchema = new mongoose.Schema({
     },
 });
 
-const RouletteEvent = mongoose.Model('RouletteEvent', rouletteEventSchema);
+const RouletteEvent = mongoose.model('RouletteEvent', rouletteEventSchema);
 export default RouletteEvent;
