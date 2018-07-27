@@ -12,7 +12,7 @@ export default class DadResponseTrigger extends BaseTrigger {
       const resp = message.text.split("I'm ")[1];
 
       return {
-        responseText: `Hi ${message.name}, I'm Dad.`,
+        responseText: `Hi ${resp}, I'm Dad.`,
       }
     } else {
       return undefined
