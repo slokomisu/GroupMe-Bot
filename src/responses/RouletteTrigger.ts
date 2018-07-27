@@ -1,7 +1,6 @@
 import {BaseTrigger} from './BaseTrigger';
 import {IBotResponse, IGroupMeMessage} from '../types';
 import NoNutNovemberResponseTrigger from './NoNutNovemberResponseTrigger';
-import RouletteEvent from '../Models/RouletteEvent';
 
 export class RouletteTrigger extends BaseTrigger {
 
@@ -19,12 +18,10 @@ export class RouletteTrigger extends BaseTrigger {
     const roll = getRandomIntInclusive(1, 6)
     if (roll === 6) {
       await NoNutNovemberResponseTrigger.removeMember(message.group_id, message.sender_id);
-      await RouletteEvent.create({userId: message.sender_id, result: 'BOOM'})
       return {
         responseText: `🔫BOOM🔫 ${message.name} is dead.`
       }
     } else {
-      await RouletteEvent.create({userId: message.sender_id, result: 'CLICK'})
       return {
         responseText: `CLICK. ${message.name} lives another day.`
       }
