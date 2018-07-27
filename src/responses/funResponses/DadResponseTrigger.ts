@@ -10,10 +10,14 @@ export default class DadResponseTrigger extends BaseTrigger {
   public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
     if (this.isShitpost(message.group_id)) {
       const resp = message.text.split("I'm ")[1];
-
-      return {
-        responseText: `Hi ${resp}, I'm Dad.`,
+      if (resp) {
+        return {
+          responseText: `Hi ${resp}, I'm Dad.`,
+        }
+      } else {
+        return undefined;
       }
+
     } else {
       return undefined
     }
