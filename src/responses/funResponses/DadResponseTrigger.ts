@@ -4,7 +4,7 @@ import { BaseTrigger } from '../BaseTrigger'
 export default class DadResponseTrigger extends BaseTrigger {
   constructor () {
     super()
-    this.triggerPatterns = [/i'm/i, /i’m/i]
+    this.triggerPatterns = [/i'm/i, /i’m/i, /I’m/, /I'm/]
   }
 
   public async respond (message: IGroupMeMessage): Promise<IBotResponse> {
