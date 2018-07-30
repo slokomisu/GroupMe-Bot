@@ -1,14 +1,13 @@
 import axios from 'axios'
 import Raven from '../utils/RavenLogger';
 import { BaseTrigger } from './BaseTrigger'
-import { IBotResponse, IGroupMeMessage } from '../types'
+import { IBotResponse, IGroupMeMessage, TriggerMetadata } from '../types'
 import { GroupMeImageService } from '../utils/GroupMeImageService'
 import * as util from 'util'
 
-export class GiphyResponseTrigger extends BaseTrigger {
+export default class GiphyResponseTrigger extends BaseTrigger {
   triggerPatterns = [/@gif/]
   private giphyBaseUrl = 'https://api.giphy.com'
-
 
   async respond (message: IGroupMeMessage): Promise<IBotResponse> {
     if (this.isShitpost(message.group_id)) {
@@ -39,6 +38,15 @@ export class GiphyResponseTrigger extends BaseTrigger {
       }
     }
   }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Giphy Response',
+      triggerDescription: 'Posts a GIF from Giphy based on some keywords or posts a random GIF',
+      triggerUseExample: '@gif for random GIF or @gif <keywords> for a specific kind of GIF',
+    }
+  }
+
 
   private async getRandomGif (): Promise<string> {
     try {

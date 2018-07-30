@@ -1,4 +1,4 @@
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
 export default class BasicResponseTrigger extends BaseTrigger {
@@ -13,6 +13,14 @@ export default class BasicResponseTrigger extends BaseTrigger {
       }
     } else {
       return undefined
+    }
+  }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'BaseResponseTrigger',
+      triggerDescription: 'Not intended for use, base response trigger',
+      triggerUseExample: 'N/A',
     }
   }
 

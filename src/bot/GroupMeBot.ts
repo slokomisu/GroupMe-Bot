@@ -1,10 +1,6 @@
 import axios from 'axios';
 import Raven from '../utils/RavenLogger';
 import Message from '../Models/Message';
-import BasicResponseTrigger from '../responses/BasicResponseTrigger';
-import EverybodyResponseTrigger from '../responses/EverybodyResponseTrigger';
-import LineResponseTrigger from '../responses/LineResponseTrigger';
-import WeatherResponseTrigger from '../responses/WeatherResponseTrigger';
 import {
   IBotResponse,
   IGroupMeMessage,
@@ -12,13 +8,20 @@ import {
   IResponseTrigger,
   SenderType,
 } from '../types';
-import NoNutNovemberResponseTrigger from '../responses/NoNutNovemberResponseTrigger';
-import { GiphyResponseTrigger } from '../responses/GiphyResponseTrigger';
-import { RouletteTrigger } from '../responses/RouletteTrigger';
-import CernerResponseTrigger from '../responses/funResponses/CernerResponseTrigger'
-import ILoveYouResponseTrigger from '../responses/funResponses/ILoveYouResponseTrigger';
-import LocationResponseTrigger from '../responses/LocationResponseTrigger';
-import DadResponseTrigger from '../responses/funResponses/DadResponseTrigger';
+import {
+  BasicResponseTrigger,
+  WeatherResponseTrigger,
+  EverybodyResponseTrigger,
+  NoNutNovemberResponseTrigger,
+  GiphyResponseTrigger,
+  RouletteTrigger,
+  CernerResponseTrigger,
+  ILoveYouResponseTrigger,
+  DadResponseTrigger,
+  LocationResponseTrigger,
+  HelpTrigger
+} from '../responses';
+
 
 export default class GroupMeBot {
   private botId: string;
@@ -64,7 +67,6 @@ export default class GroupMeBot {
     this.responseTriggers = [
       new EverybodyResponseTrigger(this.accessToken),
       new WeatherResponseTrigger(),
-      new LineResponseTrigger(),
       new NoNutNovemberResponseTrigger(),
       new GiphyResponseTrigger(),
       new RouletteTrigger(),
@@ -73,6 +75,7 @@ export default class GroupMeBot {
       new BasicResponseTrigger([/absolutely not/i], 'take me to jail'),
       new LocationResponseTrigger(),
       new DadResponseTrigger(),
+      new HelpTrigger(),
     ];
   }
 
@@ -122,6 +125,7 @@ export default class GroupMeBot {
       console.log(messageRequest);
       return true;
     } catch (e) {
+      console.error(e)
       Raven.captureException(e);
       return false;
     }

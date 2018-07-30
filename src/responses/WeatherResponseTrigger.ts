@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as humanizeList from 'humanize-list'
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
 export default class WeatherResponseTrigger extends BaseTrigger {
@@ -17,6 +17,15 @@ export default class WeatherResponseTrigger extends BaseTrigger {
     };
     return Promise.resolve(response);
   }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Weather Response',
+      triggerDescription: 'Get the current weather for a location.',
+      triggerUseExample: '@weather <city>',
+    }
+  }
+
 
   private async createWeatherMessage(city: string) {
     const encodedCity = encodeURIComponent(city);

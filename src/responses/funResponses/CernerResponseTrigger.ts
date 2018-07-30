@@ -4,6 +4,7 @@ import {
   IBotResponse,
   IGroupMember,
   IGroupMeMessage,
+  TriggerMetadata,
 } from '../../types'
 import { BaseTrigger } from '../BaseTrigger'
 
@@ -12,6 +13,14 @@ export default class CernerResponseTrigger extends BaseTrigger {
 
   constructor (public accessToken: string) {
     super()
+  }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Cerner Response Trigger',
+      triggerDescription: 'Tags everyone who falls in the Cerner Group',
+      triggerUseExample: '@cerner',
+    }
   }
 
   public async respond(message: IGroupMeMessage, triggerArgs?: string): Promise<IBotResponse> {

@@ -3,9 +3,16 @@ export interface IResponseTrigger {
   triggerPatterns: RegExp[];
   accessToken?: string;
   allowedGroups: string[];
+  getMetadata(): TriggerMetadata;
 
   isTrigger(messageText: string): boolean;
   respond(message: IGroupMeMessage): Promise<IBotResponse>;
+}
+
+export interface TriggerMetadata {
+  triggerName: string;
+  triggerDescription: string;
+  triggerUseExample: string;
 }
 
 export interface IBotResponse {

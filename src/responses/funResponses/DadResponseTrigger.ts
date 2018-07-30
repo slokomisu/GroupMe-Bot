@@ -1,4 +1,4 @@
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../../types'
 import { BaseTrigger } from '../BaseTrigger'
 
 export default class DadResponseTrigger extends BaseTrigger {
@@ -30,6 +30,14 @@ export default class DadResponseTrigger extends BaseTrigger {
 
     } else {
       return undefined
+    }
+  }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Dad Response',
+      triggerDescription: 'Acts like a dad',
+      triggerUseExample: 'I\'m your dad',
     }
   }
 

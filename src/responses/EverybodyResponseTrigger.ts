@@ -5,6 +5,7 @@ import {
   IGroupMember,
   IGroupMeMessage,
   IResponseTrigger,
+  TriggerMetadata,
 } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
@@ -22,6 +23,14 @@ export default class EverybodyResponseTrigger extends BaseTrigger {
       responseText: `${message.name} wants your attention! ${mentionList}`,
     };
     return response
+  }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Everybody Response',
+      triggerDescription: 'Tags everyone in the group in a message to get everyone\'s attention',
+      triggerUseExample: '@everyone',
+    }
   }
 
   private async getMentionList(message: IGroupMeMessage): Promise<{mentionList: string, mentionAttachment: any}> {

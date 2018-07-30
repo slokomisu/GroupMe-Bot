@@ -1,18 +1,10 @@
 import {BaseTrigger} from './BaseTrigger';
-import {IBotResponse, IGroupMeMessage} from '../types';
+import {IBotResponse, IGroupMeMessage, TriggerMetadata} from '../types';
 import NoNutNovemberResponseTrigger from './NoNutNovemberResponseTrigger';
 
-export class RouletteTrigger extends BaseTrigger {
+export default class RouletteTrigger extends BaseTrigger {
 
   triggerPatterns = [/@roulette/];
-
-  public isTrigger (message : string): boolean {
-    if (message.includes('stats')) {
-      return false;
-    } else {
-      super.isTrigger(message);
-    }
-  }
 
   async respond(message: IGroupMeMessage): Promise<IBotResponse> {
     const roll = getRandomIntInclusive(1, 6)
@@ -27,7 +19,17 @@ export class RouletteTrigger extends BaseTrigger {
       }
     }
   }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Roulette Response',
+      triggerDescription: 'Play Russian Roulette with the bot. If you lose, you get kicked out the group.',
+      triggerUseExample: '@roulette',
+    }
+  }
+
 }
+
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);

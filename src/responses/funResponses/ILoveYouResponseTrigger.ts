@@ -1,4 +1,4 @@
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../../types'
 import { BaseTrigger } from '../BaseTrigger'
 
 export default class ILoveYouResponseTrigger extends BaseTrigger {
@@ -14,6 +14,14 @@ export default class ILoveYouResponseTrigger extends BaseTrigger {
       }
     } else {
       return undefined
+    }
+  }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Love Response',
+      triggerDescription: 'Get some love from the bot',
+      triggerUseExample: 'Profess your love to the group',
     }
   }
 

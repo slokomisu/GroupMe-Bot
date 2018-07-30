@@ -1,11 +1,11 @@
 import * as Filter from 'bad-words'
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 import NoNutNovemberResponseTrigger from './NoNutNovemberResponseTrigger'
 import { BaseTrigger } from './BaseTrigger'
 
 const filter = new Filter()
 
-export class ProfanityTrigger extends BaseTrigger {
+export default class ProfanityTrigger extends BaseTrigger {
   triggerPatterns: RegExp[] = [/.*/]
 
   async respond (message: IGroupMeMessage): Promise<IBotResponse> {
@@ -21,5 +21,14 @@ export class ProfanityTrigger extends BaseTrigger {
       return response
     }
   }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Profanity Trigger',
+      triggerDescription: 'Removes anyone from the group if they are cursing in my Christian GroupMe server',
+      triggerUseExample: 'Say bad words',
+    }
+  }
+
 
 }

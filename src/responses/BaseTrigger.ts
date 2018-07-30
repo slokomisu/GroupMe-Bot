@@ -1,4 +1,4 @@
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 
 export class BaseTrigger implements IResponseTrigger {
   triggerPatterns: RegExp[]
@@ -20,6 +20,14 @@ export class BaseTrigger implements IResponseTrigger {
     } else {
       return this.allowedGroups.some(group => group === groupId)
     }
+  }
+
+  getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'BaseTrigger',
+      triggerDescription: 'Not intended for use, base trigger',
+      triggerUseExample: 'N/A'
+    };
   }
 
   respond (message: IGroupMeMessage): Promise<IBotResponse> {

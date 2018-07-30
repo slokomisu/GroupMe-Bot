@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Raven from '../utils/RavenLogger';
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 
 export default class NoNutNovemberResponseTrigger extends BaseTrigger {
@@ -37,6 +37,15 @@ export default class NoNutNovemberResponseTrigger extends BaseTrigger {
       return response
     }
   }
+
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'No Nut November Response',
+      triggerDescription: 'Kicks out anyone who says or hints at the word `nut` if it is November',
+      triggerUseExample: 'Try me.',
+    }
+  }
+
 
   public static async getMemberId (
     groupId: string, senderId: string): Promise<string> {

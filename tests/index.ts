@@ -3,9 +3,8 @@ import GroupMeBot from '../src/bot/GroupMeBot'
 import BasicResponseTrigger from '../src/responses/BasicResponseTrigger';
 import { IBotResponse, IGroupMeMessage, SenderType } from '../src/types'
 import EverybodyResponseTrigger from '../src/responses/EverybodyResponseTrigger'
-import LineResponseTrigger from '../src/responses/LineResponseTrigger'
 import NoNutNovemberResponseTrigger from '../src/responses/NoNutNovemberResponseTrigger'
-import { ProfanityTrigger } from '../src/responses/ProfanityTrigger'
+import  ProfanityTrigger  from '../src/responses/ProfanityTrigger'
 import WeatherResponseTrigger from '../src/responses/WeatherResponseTrigger'
 
 describe('GroupMeBot', () => {
@@ -103,51 +102,6 @@ describe('GroupMeBot', () => {
         expect(response.attachments).to.deep.eq(expectedAttachment);
       })
 
-
-    })
-
-    describe('LineResponseTrigger', () => {
-      let trigger: LineResponseTrigger;
-      let message: IGroupMeMessage;
-      beforeEach(() => {
-        trigger = new LineResponseTrigger();
-        message = {
-          attachments: [],
-          avatar_url: 'https://i.groupme.com/123456789',
-          created_at: new Date(1302623328),
-          group_id: '32968213',
-          id: '151028786611978001',
-          name: 'Albus',
-          sender_id: '30714614',
-          sender_type: SenderType.User,
-          source_guid: 'GUID',
-          text: '',
-          user_id: '30714614',
-        }
-      })
-
-      it('Triggers on \'line\'', () => {
-        message.text = 'Yall are a line, act like it.';
-        const triggered = trigger.isTrigger(message.text);
-        expect(triggered).to.be.eq(true);
-      })
-
-      it('Triggers on \'LB\'', () => {
-        message.text = 'Get your LBs and come over here'
-        const triggered = trigger.isTrigger(message.text);
-        expect(triggered).to.be.eq(true);
-      })
-
-      it('Triggers only for Matt', async () => {
-        message.sender_id = '1234575';
-        const response = await trigger.respond(message);
-        expect(response).to.be.undefined;
-      })
-
-      it('Gives the correct response', async () => {
-        const response: IBotResponse = await trigger.respond(message);
-        expect(response.responseText).to.eql('IT\'S A PROBATIONARY CLASS MATT');
-      })
 
     })
 

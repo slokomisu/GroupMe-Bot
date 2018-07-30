@@ -1,4 +1,4 @@
-import { IBotResponse, IGroupMeMessage, IResponseTrigger } from '../types'
+import { IBotResponse, IGroupMeMessage, IResponseTrigger, TriggerMetadata } from '../types'
 import { BaseTrigger } from './BaseTrigger'
 import { createClient } from '@google/maps';
 import Raven from '../utils/RavenLogger';
@@ -42,6 +42,15 @@ export default class LocationResponseTrigger extends BaseTrigger {
     }
   }
 
+  public static getMetadata(): TriggerMetadata {
+    return {
+      triggerName: 'Location Response',
+      triggerDescription: 'Searches for a location and posts the address. Limit of 200 location requests a day' ,
+      triggerUseExample: '@location <search terms>',
+    }
+  }
+
+
   private async withinFreeLimit(): Promise<boolean> {
     const today = moment().startOf('day');
     const tomorrow = moment(today).endOf('day');
@@ -67,7 +76,7 @@ export default class LocationResponseTrigger extends BaseTrigger {
       responses.push(response);
     }
     return responses.join('\n');
-  } 
+  }
 
   private async countRequest(requestor) {
     await MapsRequest.create({
