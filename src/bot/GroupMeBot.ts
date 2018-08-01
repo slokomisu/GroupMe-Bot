@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Raven from '../utils/RavenLogger';
-import Message from '../Models/Message';
 import {
   IBotResponse,
   IGroupMeMessage,
@@ -79,16 +78,7 @@ export default class GroupMeBot {
     ];
   }
 
-  private async addMessageToCreepDB(message: IGroupMeMessage) {
-    await Message.create({
-      created_at: new Date(),
-      group_id: message.group_id,
-      id: message.id,
-      name: message.name,
-      sender_id: message.sender_id,
-      text: message.text,
-    });
-  }
+
 
   private findTriggers(messageText: string): IResponseTrigger[] | null {
     const triggers: IResponseTrigger[] = [];
